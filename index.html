@@ -3,151 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tènvora | Digital Excellence</title>
+    <title>Tènvora | الإبداع الرقمي المتكامل</title>
     <style>
-        /* ========================================
-        1. DESIGN TOKENS (Updated Neon Pallet)
-        ========================================
-        */
         :root {
-            --primary: #78a0ff; /* Soft cyan-blue */
-            --primary-glow: rgba(120, 160, 255, 0.6); /* Riched soft glow */
-            --secondary: #c4cfff; /* Softest lavender */
-            --bg-deep: #05070a; /* Deepest blue-black */
-            --bg-surface: #0f172a; /* Deep gray-blue card */
-            --text-high: #f8fafc; /* Near white */
-            --text-mid: #94a3b8; /* Soft slate-gray text */
+            --primary: #78a0ff; 
+            --primary-glow: rgba(120, 160, 255, 0.6);
+            --bg-deep: #05070a; 
+            --text-high: #f8fafc; 
+            --text-mid: #94a3b8; 
             --glass-border: rgba(255, 255, 255, 0.08);
-            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-            
-            /* High Quality Neon Shadows */
-            --neon-border: 0 0 10px rgba(120, 160, 255, 0.3), 0 0 20px rgba(120, 160, 255, 0.15);
-            --neon-border-hover: 0 0 20px rgba(120, 160, 255, 0.6), 0 0 40px rgba(120, 160, 255, 0.3);
-            --neon-text: 0 0 10px rgba(120, 160, 255, 0.5), 0 0 20px rgba(120, 160, 255, 0.2);
+            --neon-shadow: 0 0 20px rgba(120, 160, 255, 0.2);
+            --neon-hover: 0 0 40px rgba(120, 160, 255, 0.5);
+            --ease: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* --- Global Reset & Blue Highlight Fix --- */
         * { 
             margin: 0; padding: 0; box-sizing: border-box; outline: none !important; 
-            -webkit-tap-highlight-color: transparent; /* No blue square on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-high);
-            font-family: var(--font-main);
+            font-family: 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.8;
+            text-align: center; /* سنتره كل شيء */
         }
 
-        /* ========================================
-        2. CINEMATIC LOADER
-        ======================================== */
+        /* --- Loader --- */
         #loader {
             position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
         }
-        .loader-logo { font-size: 28px; font-weight: 900; letter-spacing: 4px; margin-bottom: 20px; color: #fff; text-shadow: var(--neon-text); }
-        .loader-bar { width: 150px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
-        .loader-progress { position: absolute; height: 100%; width: 0%; background: var(--primary); box-shadow: var(--neon-border); animation: loadMove 2s forwards; }
-        
-        @keyframes loadMove { to { width: 100%; } }
+        .loader-logo { font-size: 32px; font-weight: 900; letter-spacing: 6px; text-shadow: 0 0 15px var(--primary); color: #fff; margin-bottom: 20px; }
+        .loader-bar { width: 220px; height: 2px; background: rgba(255,255,255,0.05); position: relative; }
+        .loader-prog { position: absolute; height: 100%; width: 0; background: var(--primary); box-shadow: 0 0 15px var(--primary); animation: load 2.5s forwards; }
+        @keyframes load { to { width: 100%; } }
 
-        /* Background & Setup */
+        /* --- Background --- */
         .mesh-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #05070a 100%); }
-
-        .navbar { position: fixed; top: 0; width: 100%; padding: 25px 10%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-        .nav-logo { font-size: 24px; font-weight: 800; background: linear-gradient(to right, var(--primary), #c4cfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: var(--neon-text); }
-
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
         
-        /* 3. High-Quality Floating & Pulsing Logo */
-        .logo-display { 
-            font-size: clamp(60px, 12vw, 120px); font-weight: 900; margin-bottom: 20px;
-            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: floatGlow 6s ease-in-out infinite;
+        .navbar { position: fixed; top: 0; width: 100%; padding: 20px 8%; display: flex; justify-content: center; z-index: 1000; background: rgba(5,7,10,0.8); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); }
+        .nav-logo { font-size: 24px; font-weight: 800; color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); letter-spacing: 2px; }
+
+        section { padding: 120px 10%; position: relative; max-width: 1000px; margin: auto; }
+
+        /* --- Hero --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .logo-glow { 
+            font-size: clamp(60px, 12vw, 120px); font-weight: 900; 
+            background: linear-gradient(180deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 20px var(--primary-glow));
         }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero p { font-size: 1.3rem; color: var(--text-mid); margin: 30px 0; max-width: 800px; }
 
-        @keyframes floatGlow { 
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 10px rgba(120, 160, 255, 0.4)); } 
-            50% { transform: translateY(-15px); filter: drop-shadow(0 0 25px rgba(120, 160, 255, 0.8)); } 
-        }
-
-        .hero-subtext { max-width: 600px; font-size: 1.1rem; color: var(--text-mid); margin-bottom: 40px; }
-
-        /* 4. Rich Neon Buttons */
-        .btn-wrapper {
-            position: relative; padding: 2px; border-radius: 50px;
-            background: rgba(255,255,255,0.03); /* Base, very low background */
+        /* --- Image Styles (Centered) --- */
+        .img-container {
+            width: 100%; max-width: 850px; margin: 40px auto;
+            border-radius: 40px; overflow: hidden;
             border: 1px solid var(--glass-border);
-            box-shadow: var(--neon-border); /* Dims constant glow */
-            transition: 0.4s var(--ease-out-expo);
-            cursor: pointer;
+            box-shadow: var(--neon-shadow);
+            transition: 0.6s var(--ease);
+            position: relative;
         }
-        .btn-wrapper:hover {
+        .img-container:hover {
+            box-shadow: var(--neon-hover);
+            transform: scale(1.02);
             border-color: var(--primary);
-            box-shadow: var(--neon-border-hover); /* Rick interactive glow */
-            transform: translateY(-3px) scale(1.03);
-            background: rgba(120, 160, 255, 0.03); /* Subtle internal color */
         }
-        .btn-main { padding: 16px 45px; background: #000; color: white; border-radius: 48px; border: none; cursor: pointer; font-weight: 600; font-size: 17px; }
+        .img-container img { width: 100%; height: auto; display: block; opacity: 0.85; transition: 0.6s; }
+        .img-container:hover img { opacity: 1; }
 
-        /* Social Dock */
-        .social-dock { display: flex; gap: 20px; margin-top: 50px; padding: 12px 24px; background: rgba(255, 255, 255, 0.03); border-radius: 24px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
-        .dock-item { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: 0.3s; filter: grayscale(1) opacity(0.6); }
-        .dock-item:hover { filter: grayscale(0) opacity(1); transform: translateY(-8px) scale(1.15); box-shadow: 0 0 20px var(--primary-glow); }
-        .dock-item img { width: 28px; height: 28px; }
-
-        /* 5. Rich Neon Cards */
-        .container { max-width: 1100px; margin: auto; padding: 80px 20px; }
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-        .card-pro { 
+        /* --- Cards Content --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 60px 0; }
+        .card { 
             background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); 
-            box-shadow: var(--neon-border); /* Constant dim card glow */
-            padding: 40px; border-radius: 32px; transition: 0.5s var(--ease-out-expo); 
+            padding: 35px; border-radius: 30px; transition: 0.5s var(--ease);
+            box-shadow: var(--neon-shadow);
         }
-        .card-pro:hover { 
-            border-color: var(--primary); transform: translateY(-10px); 
-            background: rgba(120, 160, 255, 0.02); /* Very faint blue inner tint */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3), var(--neon-border-hover); /* Rick Interactive glow */
-        }
-        .card-pro h3 { color: var(--primary); margin-bottom: 15px; font-size: 22px; text-shadow: var(--neon-text); }
+        .card:hover { border-color: var(--primary); box-shadow: var(--neon-hover); background: rgba(120,160,255,0.02); transform: translateY(-5px); }
+        .card h3 { color: var(--primary); margin-bottom: 15px; text-shadow: 0 0 10px var(--primary-glow); }
 
-        /* ========================================
-        6. FORM/MODAL WITH SMOOTH ENTRY
-        ======================================== */
-        .modal-overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(15px); 
-            display: none; align-items: center; justify-content: center; z-index: 2000; 
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-        .modal-overlay.open { display: flex; opacity: 1; }
+        /* --- Text Highlights --- */
+        .highlight-text { font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 20px; line-height: 1.4; }
+        .sub-desc { font-size: 1.1rem; color: var(--text-mid); margin-bottom: 40px; }
 
-        .glass-panel { 
-            width: 90%; max-width: 450px; background: #0a0c14; padding: 45px; 
-            border-radius: 40px; border: 1px solid var(--glass-border); 
-            box-shadow: 0 0 50px rgba(0,0,0,0.5), var(--neon-border); /* Modal Constant glow */
-            
-            /* The Smooth entry animation */
-            transform: translateY(50px) scale(0.9);
-            opacity: 0;
-            transition: transform 0.6s var(--ease-out-expo), opacity 0.5s ease;
+        /* --- Buttons --- */
+        .btn-neon {
+            display: inline-block; padding: 18px 50px; border-radius: 60px; 
+            background: #000; color: #fff; border: 1px solid var(--primary);
+            cursor: pointer; font-weight: 700; text-decoration: none;
+            box-shadow: var(--neon-shadow); transition: 0.4s; font-size: 18px;
         }
-        .modal-overlay.open .glass-panel { transform: translateY(0) scale(1); opacity: 1; }
+        .btn-neon:hover { box-shadow: var(--neon-hover); transform: scale(1.08); background: var(--primary); color: #000; }
 
-        /* Reveal Animation setup */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s var(--ease-out-expo); }
+        /* --- Modal Form --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-box { width: 90%; max-width: 550px; background: #0a0c14; padding: 50px; border-radius: 40px; border: 1px solid var(--primary); box-shadow: var(--neon-hover); }
+        .modal.open { display: flex; }
+        input, textarea { width: 100%; padding: 18px; margin-bottom: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 15px; color: #fff; font-size: 16px; }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s var(--ease); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .social-dock { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .social-dock a { width: 55px; height: 55px; background: rgba(255,255,255,0.03); border-radius: 15px; display: flex; align-items: center; justify-content: center; transition: 0.3s; border: 1px solid var(--glass-border); }
+        .social-dock a:hover { border-color: var(--primary); box-shadow: var(--neon-shadow); transform: translateY(-8px); background: rgba(120,160,255,0.05); }
+        .social-dock img { width: 28px; height: 28px; filter: grayscale(1); }
+        .social-dock a:hover img { filter: grayscale(0); }
     </style>
 </head>
 <body>
 
     <div id="loader">
         <div class="loader-logo">TÈNVORA</div>
-        <div class="loader-bar"><div class="loader-progress"></div></div>
+        <div class="loader-bar"><div class="loader-prog"></div></div>
     </div>
 
     <div class="mesh-bg"></div>
@@ -158,103 +130,127 @@
 
     <main>
         <section class="hero">
-            <h1 class="logo-display reveal">Tènvora</h1>
-            <p class="hero-subtext reveal">نصمم مواقع رقمية هادئة تتنفس الإبداع، حيث تلتقي الفخامة بالبساطة المتوهجة.</p>
+            <h1 class="logo-glow reveal">Tènvora</h1>
+            <p class="reveal">1. نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة.</p>
+            <p class="reveal">2. نتخصص في إنشاء المواقع الإلكترونية التي تجمع بين الجماليات العصرية والأداء التقني القوي.</p>
             
-            <div class="reveal">
-                <div class="btn-wrapper" onclick="toggleModal(true)">
-                    <button class="btn-main">بدء مشروعك الآن</button>
-                </div>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Future Tech">
             </div>
 
-            <div class="social-dock reveal">
-                <a href="https://wa.me/201207847074" target="_blank" class="dock-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-                </a>
-                <a href="https://instagram.com/tenvora.dev" target="_blank" class="dock-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
-                </a>
-                <a href="https://www.facebook.com/share/18KBnYSSDu/" target="_blank" class="dock-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook">
-                </a>
+            <p class="reveal">3. نؤمن بأن العظمة تكمن في التفاصيل، لذلك نتميز بـ الدقة في التنفيذ وكأن كل موقع هو تحفة فنية فريدة.</p>
+        </section>
+
+        <section>
+            <h2 class="highlight-text reveal">4. في عالم الأعمال، الوقت هو أثمن ما تملك، ونحن نضمن لك السرعة في الإنجاز دون التضحية أبداً بجودة العمل.</h2>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Performance">
+            </div>
+            <p class="reveal">5. نقدم لك السعر المنصف الذي يعكس قيمة إبداعنا، بعيداً عن المبالغة أو التقديرات الوهمية.</p>
+            <div class="grid">
+                <div class="card reveal">
+                    <h3>6. آراء عملائنا</h3>
+                    <p>لا نكتفي بادعاء التميز، بل نثبت ذلك من خلال آراء جميع عملائنا الذين هم خير دليل على جودة شراكتنا.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>7. الحقيقة والأفضلية</h3>
+                    <p>نحن الأفضل، وهذا ليس مجرد شعار، بل حقيقة تؤكدها تجارب من تعاملوا معنا ووثقوا بخبراتنا.</p>
+                </div>
             </div>
         </section>
 
-        <section class="container">
-            <div class="cards-grid">
-                <div class="card-pro reveal">
-                    <h3>⚡ سرعة متوهجة</h3>
-                    <p>أنظمة برمجية سريعة ومستقرة تضمن لمستخدميك أفضل تجربة أداء .</p>
-                </div>
-                <div class="card-pro reveal">
-                    <h3>💎 واجهة رقمية</h3>
-                    <p></p>نحول رؤية علامتك التجارية إلى واقع بصري ساحر ومريح بجماليات  .</p>
-                </div>
-                <div class="card-pro reveal">
-                    <h3>🛠 دعم تقني</h3>
-                    <p>نحن شريكك التقني في كل خطوة لضمان استمرارية نجاح مشروعك الرقمي.</p>
-                </div>
+        <section>
+            <p class="reveal">8. ندرك أن الموقع الجيد هو واجهة شركتك، لذلك نضع خبراتنا لخدمة نجاحك.</p>
+            <h2 class="highlight-text reveal">9. لكن خدماتنا لا تتوقف عند البرمجة فقط، بل يمكننا مساعدتك أيضاً في إنشاء الهوية البصرية المتكاملة.</h2>
+            
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80" alt="Visual Identity">
+            </div>
+
+            <p class="reveal">10. سواء كنت بحاجة إلى شعار يعبر عنك، أو ألوان تحكي قصتك، نحن نصنع لك هوية متكاملة قبل بناء الموقع.</p>
+            <p class="reveal">11. نصنع لك تجربة رقمية متكاملة، حيث يلتقي الإبداع البصري مع الدقة البرمجية.</p>
+            <p class="reveal">12. مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة رقمية احترافية تعكس قوة علامتك التجارية.</p>
+        </section>
+
+        <section>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Team Spirit">
+            </div>
+            <p class="reveal">13. نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه من الاهتمام والدقة ما يضمن نجاحه.</p>
+            <p class="reveal">14. نحن نعرف كيف نترجم احتياجاتك إلى كود سليم، وكيف نحول رؤيتك إلى تصميم مبهر.</p>
+            <p class="reveal">15. السرعة التي نعمل بها لا تأتي على حساب الدقة؛ بل هي نتاج خبرة طويلة وفريق عمل متكامل ومتناغم.</p>
+        </section>
+
+        <section>
+            <div class="card reveal" style="max-width: 800px; margin: auto;">
+                <p>16. نقدم حلولاً مرنة تناسب جميع الميزانيات، مع ضمان الجودة العالية التي تستحقها.</p>
+                <p>17. من أول فكرة حتى لحظة إطلاق موقعك، نحن معك بكل خطوة، نرسم ونبرمج ونبدع.</p>
+                <p>18. عملاؤنا هم سفراؤنا، وثقتهم الغالية هي رأس مالنا الحقيقي الذي نفتخر به.</p>
+            </div>
+
+            <div class="img-container reveal" style="margin-top: 60px;">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Success">
+            </div>
+
+            <h2 class="highlight-text reveal" style="margin-top: 40px;">19. إذا كنت تبحث عن شريك تقني يملك الدقة، السرعة، السعر المنافس، والإبداع البصري، فقد وجدته.</h2>
+            
+            <p class="reveal" style="font-size: 1.5rem; color: var(--primary); font-weight: 800;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
+
+            <div class="reveal" style="margin-top: 40px;">
+                <button class="btn-neon" onclick="toggleModal(true)">ابدأ مشروعك الآن</button>
+            </div>
+
+            <div class="social-dock reveal">
+                <a href="https://wa.me/201207847074" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"></a>
+                <a href="https://instagram.com/tenvora.dev" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"></a>
+                <a href="https://www.facebook.com/share/18KBnYSSDu/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"></a>
             </div>
         </section>
     </main>
 
-    <div class="modal-overlay" id="modal">
-        <div class="glass-panel">
-            <h2 style="margin-bottom: 25px; text-align: center; color: var(--primary); text-shadow: var(--neon-text);">دعنا نبدأ</h2>
-            <input type="text" id="name" placeholder="الاسم" style="width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; color: #fff;">
-            <input type="tel" id="phone" placeholder="رقم الهاتف" style="width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; color: #fff;">
-            <textarea id="desc" rows="4" placeholder="تفاصيل المشروع" style="width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; color: #fff;"></textarea>
-            
-            <div class="btn-wrapper" onclick="executeSend()">
-                <button class="btn-main" style="width: 100%;">إرسال الطلب</button>
-            </div>
-            <button onclick="toggleModal(false)" style="display: block; width: 100%; background: none; border: none; color: #555; margin-top: 15px; cursor: pointer;">إغلاق</button>
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 25px; text-shadow: 0 0 10px var(--primary-glow);">نحن بانتظار فكرتك</h2>
+            <input type="text" id="name" placeholder="الاسم الكامل">
+            <input type="tel" id="phone" placeholder="رقم الواتساب">
+            <textarea id="desc" rows="4" placeholder="أخبرنا قليلاً عن مشروعك القادم..."></textarea>
+            <button class="btn-neon" style="width: 100%;" onclick="sendData()">إرسال الطلب</button>
+            <button onclick="toggleModal(false)" style="display: block; width: 100%; background: none; border: none; color: #555; margin-top: 20px; cursor: pointer;">إغلاق</button>
         </div>
     </div>
 
     <script>
-        // Loader Logic
+        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 800);
-            }, 2000);
+                const l = document.getElementById('loader');
+                l.style.opacity = '0';
+                setTimeout(() => l.style.display = 'none', 1000);
+            }, 2500);
         });
 
-        // Reveal Logic
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add("active");
-            });
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-        // 6. Modal Controller with Animation Logic
-        function toggleModal(state) {
-            const modal = document.getElementById("modal");
-            if(state) {
-                modal.classList.add('open');
-                document.body.style.overflow = "hidden";
-            } else {
-                modal.classList.remove('open');
-                // ننتظر انتهاء انيميشن الخروج (0.5s) قبل إخفاء الفورم تماماً
-                setTimeout(() => {
-                    if(!modal.classList.contains('open')) {
-                        document.body.style.overflow = "auto";
-                    }
-                }, 500);
-            }
+        // Modal
+        function toggleModal(s) {
+            const m = document.getElementById('modal');
+            s ? m.classList.add('open') : m.classList.remove('open');
+            document.body.style.overflow = s ? 'hidden' : 'auto';
         }
 
-        function executeSend() {
-            const name = document.getElementById("name").value;
-            const phone = document.getElementById("phone").value;
-            const desc = document.getElementById("desc").value;
-            if(!name || !phone) return alert("برجاء إدخال بياناتك");
-            const text = `استفسار جديد:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n📝 التفاصيل: ${desc}`;
-            window.open(`https://wa.me/201207847074?text=${encodeURIComponent(text)}`);
+        // WhatsApp Sender
+        function sendData() {
+            const n = document.getElementById('name').value;
+            const p = document.getElementById('phone').value;
+            const d = document.getElementById('desc').value;
+            if(!n || !p) return alert("فضلاً، أدخل البيانات المطلوبة");
+            
+            const msg = `طلب استشارة جديدة من الموقع:\n👤 الاسم: ${n}\n📞 الهاتف: ${p}\n📝 التفاصيل: ${d}`;
+            window.open(`https://wa.me/201207847074?text=${encodeURIComponent(msg)}`);
         }
     </script>
 </body>
