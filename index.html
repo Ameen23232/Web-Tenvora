@@ -14,7 +14,6 @@
         }
 
         :root {
-            /* الوضع الداكن */
             --primary: #78a0ff; 
             --primary-glow: rgba(120, 160, 255, 0.6);
             --bg-deep: #05070a; 
@@ -29,7 +28,6 @@
             --ease-long: cubic-bezier(0.7, 0, 0.3, 1); 
         }
 
-        /* الوضع المشرق */
         body.light-mode {
             --bg-deep: #f0f4f8;
             --text-high: #1e293b;
@@ -41,7 +39,6 @@
             --neon-hover: 0 10px 30px rgba(120, 160, 255, 0.15);
         }
 
-        /* وضع الغروب */
         body.sunset-mode {
             --primary: #ff8c42; 
             --primary-glow: rgba(255, 140, 66, 0.6);
@@ -79,23 +76,12 @@
 
         .mesh-bg { position: fixed; inset: 0; z-index: -1; background: var(--mesh-gradient); transition: 1.2s var(--ease-long); }
 
-        #loader {
-            position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1s ease;
-        }
-        .loader-logo { font-size: 32px; font-weight: 900; letter-spacing: 6px; text-shadow: 0 0 15px var(--primary); color: var(--text-high); margin-bottom: 20px; }
-        .loader-bar { width: 220px; height: 2px; background: var(--glass-border); position: relative; }
-        .loader-prog { position: absolute; height: 100%; width: 0; background: var(--primary); box-shadow: 0 0 15px var(--primary); animation: load 2.5s forwards; }
-        @keyframes load { to { width: 100%; } }
-
         .theme-toggle {
             position: fixed; top: 25px; left: 25px; z-index: 1001;
             background: var(--primary); border: none; width: 50px; height: 50px;
             border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--neon-shadow); transition: transform 0.4s var(--ease-long), background-color 1s var(--ease-long), box-shadow 1s;
+            box-shadow: var(--neon-shadow); transition: transform 0.4s var(--ease-long), background-color 1s var(--ease-long);
         }
-        .theme-toggle:focus { outline: none; border: none; }
         .theme-toggle:hover { transform: scale(1.1) rotate(180deg); }
         .theme-toggle svg { fill: white; width: 24px; pointer-events: none; }
 
@@ -109,7 +95,7 @@
         .whatsapp-float img { width: 35px; height: 35px; }
 
         .navbar { position: fixed; top: 0; width: 100%; padding: 20px 8%; display: flex; justify-content: center; z-index: 1000; background: rgba(var(--bg-deep), 0.7); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); transition: 1s var(--ease-long); }
-        .nav-logo { font-size: 24px; font-weight: 800; color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); letter-spacing: 2px; transition: 1s; }
+        .nav-logo { font-size: 24px; font-weight: 800; color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); letter-spacing: 2px; }
 
         section { padding: 100px 10%; position: relative; max-width: 1000px; margin: auto; }
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -117,7 +103,7 @@
         .logo-glow { 
             font-size: clamp(60px, 12vw, 120px); font-weight: 900; 
             background: linear-gradient(180deg, var(--text-high), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: float 6s ease-in-out infinite; transition: 1s var(--ease-long);
+            animation: float 6s ease-in-out infinite;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
@@ -128,58 +114,48 @@
             width: 100%; max-width: 850px; margin: 40px auto;
             border-radius: 40px; overflow: hidden;
             border: 1px solid var(--glass-border);
-            box-shadow: var(--neon-shadow); transition: 0.8s var(--ease-long);
+            box-shadow: var(--neon-shadow); transition: 0.8s;
         }
-        .img-container img { width: 100%; height: auto; display: block; transition: 0.8s; }
-        .img-container:hover { transform: scale(1.02); border-color: var(--primary); box-shadow: var(--neon-hover); }
+        .img-container img { width: 100%; height: auto; display: block; }
+        .img-container:hover { transform: scale(1.02); border-color: var(--primary); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 60px 0; }
         .card { 
             background: var(--card-bg); border: 1px solid var(--glass-border); 
-            padding: 35px; border-radius: 30px; transition: 0.8s var(--ease-long);
+            padding: 35px; border-radius: 30px; transition: 0.8s;
             box-shadow: var(--neon-shadow); backdrop-filter: blur(5px);
         }
-        .card:hover { border-color: var(--primary); box-shadow: var(--neon-hover); transform: translateY(-10px); }
-        .card h3 { color: var(--primary); transition: 0.8s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .card h3 { color: var(--primary); }
 
-        .highlight-text { font-size: 1.8rem; font-weight: 700; color: var(--text-high); margin-bottom: 20px; transition: 0.8s; }
+        .highlight-text { font-size: 1.8rem; font-weight: 700; color: var(--text-high); margin-bottom: 20px; }
 
         .btn-neon {
             display: inline-block; padding: 18px 50px; border-radius: 60px; 
             background: var(--text-high); color: var(--bg-deep); border: 1px solid var(--primary);
             cursor: pointer; font-weight: 700; text-decoration: none;
-            box-shadow: var(--neon-shadow); transition: 0.5s var(--ease-long); font-size: 18px;
+            box-shadow: var(--neon-shadow); transition: 0.5s; font-size: 18px;
         }
-        .btn-neon:hover { box-shadow: var(--neon-hover); transform: scale(1.1); background: var(--primary); color: white; }
+        .btn-neon:hover { transform: scale(1.1); background: var(--primary); color: white; }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: 0.5s; }
         .modal.open { display: flex; opacity: 1; }
         .modal-box { 
             width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto;
             background: var(--bg-deep); padding: 40px; border-radius: 40px; border: 1px solid var(--primary); 
-            box-shadow: var(--neon-hover); color: var(--text-high); transform: scale(0.8); transition: 0.5s;
-            position: relative; /* لجعل السهم يتموضع بالنسبة للمحتوى */
+            position: relative; transform: scale(0.8); transition: 0.5s;
         }
         .modal.open .modal-box { transform: scale(1); }
 
-        /* السهم المضيء للعودة */
         .back-arrow-btn {
             position: absolute; top: 25px; right: 25px;
             background: none; border: none; cursor: pointer;
             width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
             border-radius: 50%; border: 1px solid var(--glass-border);
-            color: var(--primary); box-shadow: var(--neon-shadow);
-            transition: 0.4s; z-index: 2001;
-            animation: pulse-glow 2s infinite;
+            color: var(--primary); transition: 0.4s; z-index: 2001;
         }
-        .back-arrow-btn:hover { background: var(--primary); color: white; transform: scale(1.1); box-shadow: var(--neon-hover); }
+        .back-arrow-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
         .back-arrow-btn svg { width: 28px; height: 28px; transform: rotate(180deg); }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px var(--primary-glow); }
-            50% { box-shadow: 0 0 25px var(--primary); }
-            100% { box-shadow: 0 0 10px var(--primary-glow); }
-        }
 
         .work-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .work-item {
@@ -187,18 +163,16 @@
             color: var(--text-high); text-decoration: none; border: 1px solid var(--glass-border);
             transition: 0.3s; font-size: 14px; display: block;
         }
-        .work-item:hover { border-color: var(--primary); background: var(--primary-glow); transform: translateX(-10px); }
+        .work-item:hover { border-color: var(--primary); transform: translateX(-10px); }
 
-        .social-dock { 
-            display: flex; gap: 25px; justify-content: center; margin-top: 40px; flex-wrap: wrap; 
-        }
+        .social-dock { display: flex; gap: 25px; justify-content: center; margin-top: 40px; }
         .social-dock a { 
             width: 60px; height: 60px; background: var(--card-bg); border-radius: 18px; 
-            display: flex; align-items: center; justify-content: center; transition: 0.4s var(--ease-long); 
-            border: 1px solid var(--glass-border); overflow: hidden;
+            display: flex; align-items: center; justify-content: center; transition: 0.4s; 
+            border: 1px solid var(--glass-border);
         }
-        .social-dock a:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--neon-shadow); }
-        .social-dock a img { width: 28px; height: 28px; object-fit: contain; transition: 0.3s; }
+        .social-dock a:hover { transform: translateY(-8px); border-color: var(--primary); }
+        .social-dock a img { width: 28px; height: 28px; }
 
         @media (max-width: 600px) { .work-list { grid-template-columns: 1fr; } }
     </style>
@@ -206,11 +180,7 @@
 <body oncontextmenu="return false;">
 
     <div class="sunset-overlay"></div>
-
-    <div id="loader">
-        <div class="loader-logo">TÈNVORA</div>
-        <div class="loader-bar"><div class="loader-prog"></div></div>
-    </div>
+    <div class="mesh-bg"></div>
 
     <button class="theme-toggle" onclick="cycleTheme()" id="toggleBtn">
         <svg id="theme-icon" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg>
@@ -219,8 +189,6 @@
     <a href="https://wa.me/201207847074" class="whatsapp-float" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
-
-    <div class="mesh-bg"></div>
 
     <nav class="navbar">
         <div class="nav-logo">TÈNVORA</div>
@@ -285,10 +253,10 @@
                 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Success">
             </div>
             <h2 class="highlight-text reveal" style="margin-top: 40px;">19. إذا كنت تبحث عن شريك تقني يملك الدقة، السرعة، السعر المنافس، والإبداع البصري، فقد وجدته.</h2>
-            <p class="reveal" style="font-size: 1.5rem; color: var(--primary); font-weight: 800; animation: float 4s infinite;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
+            <p class="reveal" style="font-size: 1.5rem; color: var(--primary); font-weight: 800;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
 
             <div class="reveal" style="margin-top: 40px;">
-                <button id="works-btn" class="btn-neon" onclick="toggleModal(true)">نماذج أعمالنا</button>
+                <button class="btn-neon" onclick="toggleModal(true)">نماذج أعمالنا</button>
             </div>
 
             <div class="social-dock reveal">
@@ -302,13 +270,9 @@
     <div class="modal" id="modal">
         <div class="modal-box">
             <button class="back-arrow-btn" onclick="toggleModal(false)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             </button>
-
-            <h2 style="text-align: center; color: var(--primary); margin-bottom: 15px; margin-top: 20px;">معرض أعمالنا</h2>
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">معرض أعمالنا</h2>
             <div class="work-list">
                 <a href="https://hurghada-egypt.com" target="_blank" class="work-item">hurghada-egypt.com</a>
                 <a href="https://apptree.fr" target="_blank" class="work-item">apptree.fr</a>
@@ -318,20 +282,6 @@
                 <a href="https://tatra-kw.com" target="_blank" class="work-item">tatra-kw.com</a>
                 <a href="https://mjdesign.com.sa" target="_blank" class="work-item">mjdesign.com.sa</a>
                 <a href="https://emg-ksa.com" target="_blank" class="work-item">emg-ksa.com</a>
-                <a href="https://fahd-design.com" target="_blank" class="work-item">fahd-design.com</a>
-                <a href="https://legend-herbs.com" target="_blank" class="work-item">legend-herbs.com</a>
-                <a href="https://seah.sa" target="_blank" class="work-item">seah.sa</a>
-                <a href="https://rayatalrabie.com" target="_blank" class="work-item">rayatalrabie.com</a>
-                <a href="https://arkan-office.com" target="_blank" class="work-item">arkan-office.com</a>
-                <a href="https://u-mjc.com" target="_blank" class="work-item">u-mjc.com</a>
-                <a href="https://silviuprundeanu.com" target="_blank" class="work-item">silviuprundeanu.com</a>
-                <a href="https://alahramfarms.com" target="_blank" class="work-item">alahramfarms.com</a>
-                <a href="https://thelinguistinc.com" target="_blank" class="work-item">thelinguistinc.com</a>
-                <a href="https://ambulancefast.com" target="_blank" class="work-item">ambulancefast.com</a>
-                <a href="https://webee-group.com" target="_blank" class="work-item">webee-group.com</a>
-                <a href="https://kaizen-care.com" target="_blank" class="work-item">kaizen-care.com</a>
-                <a href="https://incense-sa.com" target="_blank" class="work-item">incense-sa.com</a>
-                <a href="https://dar-lina.com" target="_blank" class="work-item">dar-lina.com</a>
             </div>
             <button onclick="toggleModal(false)" style="display: block; width: 100%; background: none; border: 1px solid var(--glass-border); border-radius: 15px; color: var(--text-high); padding: 15px; margin-top: 25px; cursor: pointer;">إغلاق</button>
         </div>
@@ -349,23 +299,11 @@
             currentMode = (currentMode + 1) % 3;
             const body = document.body;
             const icon = document.getElementById('theme-icon');
-            
-            document.getElementById('toggleBtn').style.transform = "scale(0.8)";
-            setTimeout(() => { document.getElementById('toggleBtn').style.transform = "scale(1.1) rotate(180deg)"; }, 200);
-
             body.classList.remove('light-mode', 'sunset-mode');
             if (currentMode === 1) body.classList.add('light-mode');
             else if (currentMode === 2) body.classList.add('sunset-mode');
             icon.innerHTML = iconPath[currentMode];
         }
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const l = document.getElementById('loader');
-                l.style.opacity = '0';
-                setTimeout(() => l.style.display = 'none', 1000);
-            }, 2500);
-        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
@@ -374,17 +312,8 @@
 
         function toggleModal(s) {
             const m = document.getElementById('modal');
-            const btn = document.getElementById('works-btn');
-            
-            if (s) {
-                m.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            } else {
-                m.classList.remove('open');
-                document.body.style.overflow = 'auto';
-                // العودة إلى مكان الزر بالضبط
-                btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            if (s) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            else { m.classList.remove('open'); document.body.style.overflow = 'auto'; }
         }
     </script>
 </body>
