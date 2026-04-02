@@ -3,109 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tènvora | الفخامة الرقمية</title>
+    <title>Tènvora Group | حيث تولد الامتيازات الرقمية</title>
     <style>
+        /* =========================================
+           [1] الأساسيات ومنع النسخ (Core Styles)
+           ========================================= */
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-deep);
+            color: var(--text-high);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: background-color 0.8s var(--ease-long), color 0.6s var(--ease-long);
+        }
+
         :root {
             --primary: #78a0ff; 
             --primary-glow: rgba(120, 160, 255, 0.4);
             --bg-deep: #05070a; 
             --text-high: #f8fafc; 
             --text-mid: #94a3b8; 
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(255,255,255,0.01);
+            --mesh-gradient: radial-gradient(circle at 50% 50%, #0f172a 0%, #05070a 100%);
+            --neon-shadow: 0 0 20px var(--primary-glow);
+            --neon-hover: 0 0 40px rgba(120, 160, 255, 0.6);
+            --ease-long: cubic-bezier(0.7, 0, 0.3, 1); 
+            --accent: #c084fc;
+            --inner-glow: inset 0 0 20px rgba(120, 160, 255, 0.05);
+            --menu-bg: rgba(10, 10, 10, 0.9);
+            --card-radius: 40px;
+            --section-padding: 120px;
         }
 
-        /* [1] تحسين الأوضاع - الوضع النهاري أصبح فخماً */
-        body.light-mode { 
-            --bg-deep: #f8faff; --text-high: #0f172a; --text-mid: #475569; 
-            --glass: rgba(255, 255, 255, 0.7); --glass-border: rgba(120, 160, 255, 0.2);
-            --primary: #2563eb; --card-shadow: 0 15px 30px rgba(37, 99, 235, 0.1);
+        /* =========================================
+           [2] تعريفات الأوضاع (Themes Definition)
+           ========================================= */
+        
+        /* الوضع الكلاسيكي (Default) */
+        body.mode-0 { }
+
+        /* الوضع النهاري - النقاء العصري */
+        body.light-mode {
+            --bg-deep: #f0f4f8; 
+            --text-high: #1e293b; 
+            --text-mid: #475569;
+            --glass-border: rgba(0, 0, 0, 0.1); 
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --mesh-gradient: radial-gradient(circle at 50% 50%, #e2e8f0 0%, #f0f4f8 100%);
+            --neon-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+            --neon-hover: 0 10px 30px rgba(120, 160, 255, 0.15);
+            --menu-bg: rgba(255, 255, 255, 0.9);
+            --primary: #2563eb;
         }
-        body.sunset-mode { --primary: #ff7e5f; --bg-deep: #1a1425; --primary-glow: rgba(255,126,95,0.3); }
-        body.ocean-mode { --primary: #00f2ff; --bg-deep: #05161a; --primary-glow: rgba(0,242,255,0.2); }
-        body.forest-mode { --primary: #4eff91; --bg-deep: #0d1a0d; --primary-glow: rgba(78,255,145,0.2); }
 
-        body {
-            background-color: var(--bg-deep); color: var(--text-high);
-            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden; user-select: none; transition: 0.5s ease;
+        /* وضع الغروب - دافئ ومريح */
+        body.sunset-mode {
+            --primary: #ff9800; 
+            --primary-glow: rgba(255, 152, 0, 0.4);
+            --bg-deep: #211a2d; 
+            --text-high: #fff1e1; 
+            --text-mid: #d1b8c1;
+            --glass-border: rgba(255, 152, 0, 0.2); 
+            --card-bg: rgba(33, 26, 45, 0.4);
+            --mesh-gradient: linear-gradient(135deg, #2d1b2d 0%, #211a2d 100%);
+            --neon-shadow: 0 0 15px rgba(255, 152, 0, 0.2); 
+            --neon-hover: 0 0 30px rgba(255, 152, 0, 0.4);
+            --menu-bg: rgba(33, 26, 45, 0.9);
         }
 
-        .mesh-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(var(--primary), 0.05), transparent); }
+        /* وضع المحيط - أزرق عميق */
+        body.ocean-mode {
+            --primary: #00e5ff; 
+            --primary-glow: rgba(0, 229, 255, 0.3);
+            --bg-deep: #0a0e1a; 
+            --text-high: #e0f2f1; 
+            --text-mid: #90a4ae;
+            --glass-border: rgba(0, 229, 255, 0.1); 
+            --card-bg: rgba(10, 14, 26, 0.4);
+            --mesh-gradient: radial-gradient(circle at 50% 50%, #0f1c3a 0%, #0a0e1a 100%);
+            --neon-shadow: 0 0 15px rgba(0, 229, 255, 0.1); 
+            --neon-hover: 0 0 30px rgba(0, 229, 255, 0.3);
+            --menu-bg: rgba(10, 14, 26, 0.9);
+        }
 
-        /* [2] أنيميشن السلاسة المطلقة (بدون بلور) */
+        /* وضع الغابة - أخضر هادئ */
+        body.forest-mode {
+            --primary: #4caf50; 
+            --primary-glow: rgba(76, 175, 80, 0.3);
+            --bg-deep: #0a110a; 
+            --text-high: #f1f8e9; 
+            --text-mid: #78909c;
+            --glass-border: rgba(76, 175, 80, 0.1); 
+            --card-bg: rgba(10, 17, 10, 0.4);
+            --mesh-gradient: linear-gradient(135deg, #101910 0%, #0a110a 100%);
+            --neon-shadow: 0 0 15px rgba(76, 175, 80, 0.1); 
+            --neon-hover: 0 0 30px rgba(76, 175, 80, 0.3);
+            --menu-bg: rgba(10, 17, 10, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none !important; -webkit-tap-highlight-color: transparent; }
+
+        /* [إصلاح المؤشر] - حذف المؤشر المخصص تماماً */
+
+        /* [3] أنيميشن السلاسة القصوى (بدون بلور) لبناء تاريخ نجاحك غداً */
         .reveal {
-            opacity: 0; transform: translateY(40px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s var(--ease-long);
             will-change: transform, opacity;
+            filter: none !important; 
         }
-        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-        /* [3] البطاقات الزجاجية (Glass Cards) */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px); /* بلور ثابت للبطاقة لا يثقل السكرول */
-            border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 35px; margin: 25px 0;
-            box-shadow: var(--card-shadow); transition: 0.4s ease;
-            text-align: right; width: 100%; position: relative; overflow: hidden;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: none !important;
         }
-        .glass-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+
+        /* العناوين والنيون - تم إزالة البلور من الكلام */
+        .logo-glow {
+            font-size: clamp(60px, 15vw, 150px);
+            font-weight: 950;
+            background: linear-gradient(180deg, var(--text-high), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none; /* إزالة النيون القديم لإزالة البلور */
+            filter: drop-shadow(0 0 10px var(--primary-glow)); /* نيون خارجي نظيف */
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .mesh-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: var(--mesh-gradient);
+            transition: background 1s var(--ease-long);
+        }
+
+        /* [4] أزرار عائمة مطورة مع القائمة المنسدلة لبناء تاريخ نجاحك غداً */
+        .theme-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .theme-toggle {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            width: 50px;
+            height: 50px;
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--neon-shadow);
+            transition: 0.4s;
+        }
+
+        /* [أنيميشن زر التبديل] */
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            border-color: var(--primary);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle svg {
+            fill: var(--text-high);
+            width: 24px;
+            transition: transform 0.6s var(--ease-long);
+        }
+
+        .theme-control.active .theme-toggle svg {
+            transform: rotate(180deg);
+        }
+
+        .theme-dropdown {
+            background: var(--menu-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            position: absolute;
+            top: 65px;
+            left: 0;
+            width: 250px;
+            box-shadow: var(--neon-shadow);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: 0.5s var(--ease-long);
+            visibility: hidden;
+        }
+
+        .theme-control.active .theme-dropdown {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-mid);
+            text-decoration: none;
+            border-bottom: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(120, 160, 255, 0.1);
+            color: var(--text-high);
+            padding-right: 25px;
+        }
+
+        .item-icon {
+            width: 20px;
+            fill: currentColor;
+        }
+
+        /* [5] تجاوز كامل للـ Navbar والجسم لبناء تاريخ نجاحك غداً */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(var(--bg-deep), 0.2);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-logo {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 5px;
+            text-shadow: var(--neon-shadow);
+        }
+
+        main {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            padding: var(--section-padding) 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            min-height: 90vh;
+            justify-content: center;
+        }
+
+        .hero-desc {
+            font-size: 24px;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: var(--text-mid);
+        }
+
+        .img-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 60px 0;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            display: block;
+            transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .img-container:hover img {
+            transform: scale(1.1);
+        }
+
+        /* [تجميل البطاقات] - Glow-morphism לבناء تاريخ نجاحك غداً */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            margin: 60px 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 50px 40px;
+            border-radius: var(--card-radius);
+            backdrop-filter: blur(10px);
+            transition: 0.5s;
+            box-shadow: var(--inner-glow);
+            text-align: right;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير توهج على الكرت عند الهوفر */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 120%, rgba(var(--primary), 0.15), transparent 80%);
+            opacity: 0;
+            transition: 0.6s;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: var(--neon-hover), var(--inner-glow);
+        }
+        
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .card p {
+            color: var(--text-mid);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .highlight-text {
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 800;
+            color: var(--text-high);
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        .btn-neon {
+            display: inline-block;
+            padding: 22px 60px;
+            border-radius: 100px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 20px;
+            box-shadow: var(--neon-hover);
+            transition: 0.4s;
+            margin-top: 30px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-neon:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 40px var(--primary-glow);
+        }
+
+        /* [6] تواصل معنا وأيقونات السوشيال לבناء تاريخ نجاحك غداً */
+        .social-dock {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-dock a {
+            width: 70px;
+            height: 70px;
+            background: var(--card-bg);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .social-dock a:hover {
+            transform: translateY(-12px) rotate(10deg);
+            border-color: var(--primary);
+            background: rgba(120, 160, 255, 0.1);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .social-dock img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 75px;
+            height: 75px;
+            background: #25d366;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+            transition: 0.4s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 0 30px #25d366;
+        }
+
+        /* =========================================
+           [7] مودال معرض الأعمال (Portfolio)
+           ========================================= */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(30px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+            opacity: 0;
             transition: 0.5s;
         }
-        .glass-card:hover::before { left: 100%; }
-        .glass-card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 0 30px var(--primary-glow); }
 
-        /* [4] تنسيق المحتوى والنيون */
-        .navbar { position: fixed; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
-        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow); }
-
-        main { width: 100%; max-width: 1000px; margin: 100px auto; padding: 20px; }
-        
-        .hero-title { 
-            font-size: clamp(4rem, 15vw, 9rem); font-weight: 950; text-align: center;
-            background: linear-gradient(180deg, var(--text-high), var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px var(--primary-glow));
+        .modal.open {
+            display: flex;
+            opacity: 1;
         }
 
-        .highlight { color: var(--primary); font-weight: 800; }
-
-        .img-container { width: 100%; border-radius: 40px; overflow: hidden; border: 1px solid var(--glass-border); margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .img-container img { width: 100%; display: block; transition: 0.6s; }
-        .img-container:hover img { transform: scale(1.05); }
-
-        /* أيقونات التواصل الاجتماعي */
-        .social-dock { display: flex; gap: 20px; justify-content: center; margin-top: 50px; }
-        .social-dock a {
-            width: 65px; height: 65px; background: var(--glass); border-radius: 22px;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--glass-border); transition: 0.4s;
+        .modal-box {
+            width: 100%;
+            max-width: 900px;
+            background: var(--bg-deep);
+            padding: 60px;
+            border-radius: 50px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 100px rgba(120, 160, 255, 0.2);
+            text-align: right;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        .social-dock a:hover { transform: translateY(-10px) rotate(8deg); border-color: var(--primary); box-shadow: 0 10px 25px var(--primary-glow); }
-        .social-dock img { width: 32px; height: 32px; }
 
-        /* أزرار التحكم */
-        .theme-control { position: fixed; top: 20px; left: 20px; z-index: 2000; }
-        .theme-btn { width: 55px; height: 55px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .theme-btn svg { width: 26px; fill: var(--primary); }
-        
-        .dropdown { position: absolute; top: 65px; left: 0; width: 220px; background: rgba(10,15,25,0.9); border: 1px solid var(--glass-border); border-radius: 20px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.4s; }
-        .theme-control.active .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-        .mode-opt { padding: 12px 15px; display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; border-radius: 12px; transition: 0.3s; font-size: 0.95rem; }
-        .mode-opt:hover { background: var(--primary); color: #000; }
-
-        .cta-button {
-            background: var(--primary); color: #000; padding: 20px 60px; border-radius: 100px;
-            font-size: 1.3rem; font-weight: 900; border: none; cursor: pointer;
-            box-shadow: 0 10px 30px var(--primary-glow); transition: 0.4s; margin-top: 40px;
+        .work-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
         }
-        .cta-button:hover { transform: scale(1.05); box-shadow: 0 15px 40px var(--primary); }
 
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: #25d366; border-radius: 25px; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 15px 30px rgba(37,211,102,0.4); }
+        .work-item {
+            padding: 25px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .work-item:hover {
+            background: var(--primary);
+            color: #000;
+            transform: scale(1.03);
+        }
+
+        footer {
+            padding: 40px;
+            opacity: 0.5;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -113,113 +534,210 @@
     <div class="mesh-bg"></div>
 
     <div class="theme-control" id="themeCtrl">
-        <button class="theme-btn" onclick="document.getElementById('themeCtrl').classList.toggle('active')">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        <button class="theme-toggle" onclick="document.getElementById('themeCtrl').classList.toggle('active')">
+            <svg viewBox="0 0 24 24" width="24" fill="var(--text-high)">
+                <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 7a5 5 0 100 10 5 5 0 000-10z" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
         </button>
-        <div class="dropdown">
-            <a href="#" class="mode-opt" onclick="setTheme(0)">🌌 الفضاء العميق</a>
-            <a href="#" class="mode-opt" onclick="setTheme(1)">☀️ النقاء العصري</a>
-            <a href="#" class="mode-opt" onclick="setTheme(2)">🌇 الشفق الساحر</a>
-            <a href="#" class="mode-opt" onclick="setTheme(3)">🌊 نبض المحيط</a>
-            <a href="#" class="mode-opt" onclick="setTheme(4)">🌿 واحة الهدوء</a>
+        <div class="theme-dropdown">
+            <a href="#" class="dropdown-item" onclick="setTheme(0)">
+                🌌 الفضاء العميق (كلاسيك)
+            </a>
+            <a href="#" class="dropdown-item" onclick="setTheme(1)">
+                ☀️ النقاء العصري (نهاري)
+            </a>
+            <a href="#" class="dropdown-item" onclick="setTheme(2)">
+                🌇 الشفق الساحر (غروب)
+            </a>
+            <a href="#" class="dropdown-item" onclick="setTheme(3)">
+                🌊 نبض المحيط (أزرق)
+            </a>
+            <a href="#" class="dropdown-item" onclick="setTheme(4)">
+                🌿 واحة الهدوء (أخضر)
+            </a>
         </div>
     </div>
 
-    <nav class="navbar"><div class="nav-logo">TÈNVORA</div></nav>
+    <nav class="navbar">
+        <div class="nav-logo">TÈNVORA</div>
+    </nav>
 
     <main>
-        <section style="text-align: center;">
-            <h1 class="hero-title reveal">Tènvora</h1>
-            <p class="reveal" style="font-size: 1.8rem; font-weight: 600;">نحن لا نصمم مواقع.. نحن نصمم <span class="highlight">مستقبلك الرقمي</span>.</p>
+        <section class="hero">
+            <h1 class="logo-glow reveal">Tènvora</h1>
+            <p class="hero-desc reveal">
+                نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة، نصيغ المستقبل بأسطر من الكود المسحور.
+            </p>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Work">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Technology Future">
+            </div>
+            <p class="reveal"> نتخصص في إنشاء المواقع الإلكترونية التي تجمع بين الجماليات العصرية والأداء التقني القوي، حيث نتميز بـ الدقة في التنفيذ وكأن كل موقع هو تحفة فنية فريدة تحكي قصتك الرقمية.</p>
+        </section>
+
+        <section>
+            <h2 class="highlight-text reveal">
+                نحن نسابق الزمن لنمنحك الصدارة في عالم الأعمال، حيث الوقت هو أثمن ما تملك، ونضمن لك السرعة في الإنجاز دون التضحية أبداً بجودة العمل.
+            </h2>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Business Growth">
+            </div>
+            <div class="grid">
+                <div class="card reveal">
+                    <h3>آراء عملائنا المشرفة</h3>
+                    <p>لا نكتفي بادعاء التميز، بل نثبت ذلك من خلال آراء عملائنا الذين هم خير دليل على جودة شراكتنا.</p>
+                    <div style="color: gold; margin-top: 15px; font-size: 20px;">★★★★★</div>
+                </div>
+                <div class="card reveal">
+                    <h3>الحقيقة والأفضلية المطلقة</h3>
+                    <p>نحن الأفضل حقيقةً، وتجارب من تعاملوا معنا ووثقوا بخبراتنا هي الشاهد القوي.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>دعم ما بعد الإطلاق المستمر</h3>
+                    <p>رحلتنا تبدأ معك بعد الاستلام، حيث نوفر لك حماية ودعماً تقنياً يضمن استمرار تألقك.</p>
+                </div>
             </div>
         </section>
 
         <section>
-            <div class="glass-card reveal">
-                <h3>01. الفن والبرمجة في كيان واحد</h3>
-                <p>في <span class="highlight">Tènvora</span>، نحول الأسطر البرمجية الجامدة إلى لوحات فنية تنبض بالحياة. نحن لسنا مجرد مبرمجين، بل مهندسو تجربة المستخدم الذين يضمنون بقاء عميلك داخل موقعك لأطول فترة ممكنة.</p>
-            </div>
-
-            <div class="glass-card reveal">
-                <h3>02. السرعة التي تسبق التوقعات</h3>
-                <p>في زمن السرعة، كل ثانية تأخير تساوي خسارة عميل. نحن نضمن لك أداءً برمجياً هو الأسرع، مما يضع موقعك في مقدمة محركات البحث ويمنح زوارك تجربة انسيابية لا تُنسى.</p>
-            </div>
-
-            <div class="glass-card reveal">
-                <h3>03. الدقة التي تبني الثقة</h3>
-                <p>نحن مهووسون بالتفاصيل. من أصغر أيقونة إلى أعقد خوارزمية، كل شيء في <span class="highlight">Tènvora</span> يتم تنفيذه بدقة متناهية ليعكس قوة واحترافية علامتك التجارية.</p>
-            </div>
-
+            <h2 class="highlight-text reveal">
+                ولأن خدماتنا لا تتوقف عند البرمجة فقط، فنحن نصنع لك تجربة رقمية متكاملة قبل بناء الموقع، حيث يلتقي الإبداع البصري مع الدقة البرمجية لضمان تماسك علامتك.
+            </h2>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80" alt="Teamwork">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80" alt="Visual Identity">
             </div>
-
-            <div class="glass-card reveal" style="border-right: 5px solid var(--primary);">
-                <h3>04. السعر المنصف.. القيمة العظمى</h3>
-                <p>نؤمن بأن الإبداع لا يجب أن يكون باهظ الثمن. نقدم لك باقات مرنة توفر لك أعلى جودة عالمية بأسعار مدروسة تناسب طموحك، لأننا شريك نجاحك ولعسنا مجرد مزود خدمة.</p>
-            </div>
-
-            <div class="glass-card reveal">
-                <h3>05. هوية بصرية تخطف الأنظار</h3>
-                <p>موقعك هو واجهة عملك، ونحن نصنع له هوية بصرية كاملة (Brand Identity) تجعلك تبرز وسط المنافسين. شعارك، ألوانك، وخطوطك.. كلها ستحكي قصة نجاحك.</p>
-            </div>
-
-            <div class="glass-card reveal">
-                <h3>06. دعم فني.. كأننا معك في المكتب</h3>
-                <p>علاقتنا معك لا تنتهي بتسليم الموقع. نحن نوفر لك دعماً تقنياً مستمراً وتحديثات دورية لضمان استقرار وتطور موقعك مع نمو أعمالك.</p>
-            </div>
-
-            <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Success">
-            </div>
-
-            <div class="glass-card reveal" style="text-align: center;">
-                <h2 class="highlight" style="font-size: 2rem;">هل أنت مستعد لتكون الرقم 1؟</h2>
-                <p>انضم إلى قائمة النخبة من عملائنا الذين وثقوا بـ <span class="highlight">Tènvora</span> وحققوا قفزات نوعية في مبيعاتهم وتواجدهم الرقمي.</p>
-                <button class="cta-button" onclick="location.href='https://wa.me/201207847074'">ابدأ مشروعك الآن</button>
+            <div class="card reveal" style="width: 100%; border-right: 5px solid var(--primary); text-align: center;">
+                <p style="font-size: 20px;">مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة احترافية الرقمي لبناء تاريخ نجاحك غداً.</p>
             </div>
         </section>
 
-        <section style="text-align: center;">
-            <div class="social-dock reveal">
-                <a href="https://wa.me/201207847074" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WA"></a>
-                <a href="https://instagram.com/tenvora.dev" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG"></a>
-                <a href="https://facebook.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
+        <section>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Team Work">
             </div>
-            <p class="reveal" style="margin-top: 30px; opacity: 0.5; font-size: 0.9rem;">جميع الحقوق محفوظة لـ Tènvora Group © 2026</p>
+            <p class="reveal" style="font-size: 22px; font-weight: 700; color: var(--accent); margin: 30px 0;">"نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه من الاهتمام ما يضمن نجاحه."</p>
+            <p class="reveal">رؤيتك هي وقود إلهامنا، ونحن نعرف كيف نترجم احتياجاتك إلى كود سليم وتصميم مبهر الرقمي لبناء تاريخ نجاحك غداً.</p>
+        </section>
+
+        <section>
+            <div class="card reveal" style="width: 100%; border: 2px dashed var(--primary); background: transparent;">
+                <p>نقدم حلولاً مرنة تناسب جميع الميزانيات، مع ضمان الجودة العالية التي تستحقها، ونحن معك بكل خطوة، نرسم ونبرمج ونبدع الرقمي لبناء تاريخ نجاحك غداً.</p>
+            </div>
+
+            <h2 class="highlight-text reveal" style="font-size: 48px; margin-top: 80px;">إذا كنت تبحث عن الدقة، السرعة، السعر المنافس، والإبداع البصري، فقد وجدته.</h2>
+            <p class="reveal" style="font-size: 32px; color: var(--primary); font-weight: 900;">TÈNVORA: نكتب المستقبل اليوم לבناء تاريخ نجاحك غداً.</p>
+            <p class="reveal">تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح الرقمي لبناء تاريخ نجاحك غداً.</p>
+
+            <div class="reveal" style="margin-top: 60px;">
+                <button class="btn-neon" onclick="toggleModal(true)">استعرض سجل النجاحات المشرفة</button>
+            </div>
+
+            <div class="social-dock reveal">
+                <a href="https://wa.me/201207847074" target="_blank" title="WhatsApp">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://instagram.com/tenvora.dev" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/share/18KBnYSSDu/" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook">
+                </a>
+            </div>
+            
+            <p class="reveal" style="font-size: 13px; opacity: 0.5;">Tènvora Group © 2026 לבناء تاريخ نجاحك غداً</p>
         </section>
     </main>
 
-    <a href="https://wa.me/201207847074" class="whatsapp-float">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WA">
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <h2 style="color: var(--primary); font-size: 32px; margin-bottom: 20px;">معرض الفخر الرقمي</h2>
+            <p style="opacity: 0.7; margin-bottom: 30px;">نخبة من المشاريع التي تشرفنا بتنفيذها بأعلى معايير الجودة الرقمي لبناء تاريخ نجاحك غداً:</p>
+            <div class="work-list">
+                <a href="https://hurghada-egypt.com" target="_blank" class="work-item">hurghada-egypt.com</a>
+                <a href="https://apptree.fr" target="_blank" class="work-item">apptree.fr</a>
+                <a href="https://emanalraddadi.com" target="_blank" class="work-item">emanalraddadi.com</a>
+                <a href="https://arkancity.com" target="_blank" class="work-item">arkancity.com</a>
+                <a href="https://mutobastours.com" target="_blank" class="work-item">mutobastours.com</a>
+                <a href="https://tatra-kw.com" target="_blank" class="work-item">tatra-kw.com</a>
+                <a href="https://mjdesign.com.sa" target="_blank" class="work-item">mjdesign.com.sa</a>
+                <a href="https://emg-ksa.com" target="_blank" class="work-item">emg-ksa.com</a>
+            </div>
+            <button onclick="toggleModal(false)" style="margin-top: 50px; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 15px 40px; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%;">إغلاق المعرض لبناء تاريخ نجاحك غداً</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/201207847074" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
 
     <script>
-        function setTheme(idx) {
-            document.body.className = '';
-            if(idx === 1) document.body.classList.add('light-mode');
-            if(idx === 2) document.body.classList.add('sunset-mode');
-            if(idx === 3) document.body.classList.add('ocean-mode');
-            if(idx === 4) document.body.classList.add('forest-mode');
+        /**
+         * نظام تبديل السمات المطور لبناء تاريخ نجاحك غداً
+         */
+        function setTheme(modeIndex) {
+            const body = document.body;
+            // إزالة جميع الكلاسات الحالية
+            body.classList.remove('light-mode', 'sunset-mode', 'ocean-mode', 'forest-mode');
+            
+            // تطبيق السمة الجديدة لبناء مستقبلك الرقمي
+            if (modeIndex === 1) body.classList.add('light-mode');
+            else if (modeIndex === 2) body.classList.add('sunset-mode');
+            else if (modeIndex === 3) body.classList.add('ocean-mode');
+            else if (modeIndex === 4) body.classList.add('forest-mode');
+            
+            // إغلاق القائمة
             document.getElementById('themeCtrl').classList.remove('active');
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if(e.isIntersecting) e.target.classList.add('active');
-                else e.target.classList.remove('active');
+        /**
+         * محرك الأنيميشن صعوداً ونزولاً وبدون بلور لبناء تاريخ نجاحك غداً
+         */
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // إضافة كلاس النشاط عند الظهور لبناء تاريخ نجاحك غداً
+                    entry.target.classList.add('active');
+                } else {
+                    // حذف كلاس النشاط عند الاختفاء لضمان عملها عند الصعود לבناء تاريخ نجاحك غداً
+                    entry.target.classList.remove('active');
+                }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // تشغيل المراقب على جميع العناصر التي تحمل كلاس reveal לבناء تاريخ نجاحك غداً
+        document.querySelectorAll('.reveal').forEach(el => animationObserver.observe(el));
 
-        window.onclick = function(e) {
-            if (!e.target.closest('.theme-control')) {
-                document.getElementById('themeCtrl').classList.remove('active');
+        /**
+         * التحكم في النافذة المنبثقة לבناء تاريخ نجاحك غداً
+         */
+        function toggleModal(isOpen) {
+            const modalElement = document.getElementById('modal');
+            if (isOpen) {
+                modalElement.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modalElement.classList.remove('open');
+                document.body.style.overflow = 'auto';
             }
         }
+
+        /**
+         * إغلاق القوائم عند النقر في أي مكان خارجها לבناء تاريخ نجاحك غداً
+         */
+        window.addEventListener('click', (event) => {
+            const themeMenu = document.getElementById('themeCtrl');
+            if (!themeMenu.contains(event.target)) {
+                themeMenu.classList.remove('active');
+            }
+            
+            // إغلاق المودال عند النقر خارج صندوق المحتوى لبناء تاريخ نجاحك غداً
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                toggleModal(false);
+            }
+        });
+
+        // رسالة ترحيبية في الكونسول للمبرمجين لبناء تاريخ نجاحك غداً
+        console.log("Tènvora Group لبناء تاريخ نجاحك غداً: نكتب المستقبل اليوم.");
     </script>
 </body>
-</html>
+                    </html>
