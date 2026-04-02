@@ -3,110 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tènvora | الإبداع الرقمي السلس</title>
+    <title>Tènvora | الفخامة الرقمية</title>
     <style>
-        /* [1] منع النسخ والحفاظ على الأداء */
-        body {
-            user-select: none;
-            -webkit-user-select: none;
-            background-color: var(--bg-deep);
-            color: var(--text-high);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            transition: background-color 0.5s ease;
-        }
-
         :root {
             --primary: #78a0ff; 
             --primary-glow: rgba(120, 160, 255, 0.4);
             --bg-deep: #05070a; 
             --text-high: #f8fafc; 
             --text-mid: #94a3b8; 
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(255,255,255,0.02);
-            --neon-shadow: 0 0 15px var(--primary-glow);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* تعريفات الأوضاع الخمسة */
-        body.light-mode { --bg-deep: #f0f4f8; --text-high: #1e293b; --text-mid: #475569; --glass-border: rgba(0, 0, 0, 0.1); --card-bg: rgba(255, 255, 255, 0.8); }
-        body.sunset-mode { --primary: #ff9800; --primary-glow: rgba(255, 152, 0, 0.4); --bg-deep: #1a1425; --text-high: #fff1e1; }
-        body.ocean-mode { --primary: #00e5ff; --primary-glow: rgba(0, 229, 255, 0.3); --bg-deep: #050b1a; --text-high: #e0f2f1; }
-        body.forest-mode { --primary: #4caf50; --primary-glow: rgba(76, 175, 80, 0.3); --bg-deep: #0a110a; --text-high: #f1f8e9; }
+        /* [1] تحسين الأوضاع - الوضع النهاري أصبح فخماً */
+        body.light-mode { 
+            --bg-deep: #f8faff; --text-high: #0f172a; --text-mid: #475569; 
+            --glass: rgba(255, 255, 255, 0.7); --glass-border: rgba(120, 160, 255, 0.2);
+            --primary: #2563eb; --card-shadow: 0 15px 30px rgba(37, 99, 235, 0.1);
+        }
+        body.sunset-mode { --primary: #ff7e5f; --bg-deep: #1a1425; --primary-glow: rgba(255,126,95,0.3); }
+        body.ocean-mode { --primary: #00f2ff; --bg-deep: #05161a; --primary-glow: rgba(0,242,255,0.2); }
+        body.forest-mode { --primary: #4eff91; --bg-deep: #0d1a0d; --primary-glow: rgba(78,255,145,0.2); }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background-color: var(--bg-deep); color: var(--text-high);
+            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden; user-select: none; transition: 0.5s ease;
+        }
 
-        /* الخلفية الشبكية */
-        .mesh-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, var(--bg-deep) 100%); transition: 0.8s; }
+        .mesh-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(var(--primary), 0.05), transparent); }
 
-        /* [2] أنيميشن الظهور السلس (بدون بلور) */
+        /* [2] أنيميشن السلاسة المطلقة (بدون بلور) */
         .reveal {
-            opacity: 0;
-            transform: scale(0.9) translateY(30px);
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.8s ease;
+            opacity: 0; transform: translateY(40px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
             will-change: transform, opacity;
         }
-        .reveal.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+        /* [3] البطاقات الزجاجية (Glass Cards) */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px); /* بلور ثابت للبطاقة لا يثقل السكرول */
+            border: 1px solid var(--glass-border);
+            padding: 40px; border-radius: 35px; margin: 25px 0;
+            box-shadow: var(--card-shadow); transition: 0.4s ease;
+            text-align: right; width: 100%; position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+        .glass-card:hover::before { left: 100%; }
+        .glass-card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 0 30px var(--primary-glow); }
+
+        /* [4] تنسيق المحتوى والنيون */
+        .navbar { position: fixed; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow); }
+
+        main { width: 100%; max-width: 1000px; margin: 100px auto; padding: 20px; }
+        
+        .hero-title { 
+            font-size: clamp(4rem, 15vw, 9rem); font-weight: 950; text-align: center;
+            background: linear-gradient(180deg, var(--text-high), var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px var(--primary-glow));
         }
 
-        /* [3] أزرار التحكم */
-        .theme-control { position: fixed; top: 15px; left: 15px; z-index: 2000; }
-        .theme-toggle {
-            background: var(--card-bg); border: 1px solid var(--glass-border); 
-            width: 48px; height: 48px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: var(--neon-shadow);
-        }
-        .theme-toggle svg { width: 22px; fill: var(--primary); }
+        .highlight { color: var(--primary); font-weight: 800; }
 
-        .theme-dropdown {
-            position: absolute; top: 55px; left: 0; width: 220px;
-            background: #0f1218; border: 1px solid var(--glass-border);
-            border-radius: 15px; padding: 10px; opacity: 0; visibility: hidden;
-            transform: translateY(-10px); transition: 0.3s;
-        }
-        .theme-control.active .theme-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown-item { padding: 12px; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; border-radius: 8px; font-size: 0.9rem; }
-        .dropdown-item:hover { background: var(--primary); color: #000; }
+        .img-container { width: 100%; border-radius: 40px; overflow: hidden; border: 1px solid var(--glass-border); margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .img-container img { width: 100%; display: block; transition: 0.6s; }
+        .img-container:hover img { transform: scale(1.05); }
 
-        /* [4] الهيكل والتجاوب */
-        .navbar { position: fixed; top: 0; width: 100%; height: 70px; display: flex; align-items: center; justify-content: center; background: rgba(var(--bg-deep), 0.8); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
-        .nav-logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); letter-spacing: 3px; }
-
-        main { width: 100%; max-width: 1100px; margin: 80px auto 0; padding: 0 20px; }
-        section { padding: 60px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-
-        .logo-glow { font-size: clamp(3rem, 10vw, 7rem); font-weight: 950; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
-
-        .img-container { width: 100%; border-radius: 30px; overflow: hidden; border: 1px solid var(--glass-border); margin: 30px 0; box-shadow: var(--neon-shadow); }
-        .img-container img { width: 100%; display: block; }
-
-        .card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 30px; border-radius: 25px; margin: 15px 0; width: 100%; }
-        h3 { color: var(--primary); margin-bottom: 15px; }
-
-        /* [5] أيقونات التواصل الاجتماعي الضبوطة */
-        .social-dock { display: flex; gap: 20px; justify-content: center; margin: 40px 0; }
+        /* أيقونات التواصل الاجتماعي */
+        .social-dock { display: flex; gap: 20px; justify-content: center; margin-top: 50px; }
         .social-dock a {
-            width: 58px; height: 58px; background: var(--card-bg);
-            border-radius: 18px; border: 1px solid var(--glass-border);
+            width: 65px; height: 65px; background: var(--glass); border-radius: 22px;
             display: flex; align-items: center; justify-content: center;
-            transition: 0.3s ease;
+            border: 1px solid var(--glass-border); transition: 0.4s;
         }
-        .social-dock a:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: var(--neon-shadow); }
-        .social-dock img { width: 28px; height: 28px; }
+        .social-dock a:hover { transform: translateY(-10px) rotate(8deg); border-color: var(--primary); box-shadow: 0 10px 25px var(--primary-glow); }
+        .social-dock img { width: 32px; height: 32px; }
 
-        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 25px; right: 25px; background: #25d366; border-radius: 18px; z-index: 1500; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+        /* أزرار التحكم */
+        .theme-control { position: fixed; top: 20px; left: 20px; z-index: 2000; }
+        .theme-btn { width: 55px; height: 55px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .theme-btn svg { width: 26px; fill: var(--primary); }
+        
+        .dropdown { position: absolute; top: 65px; left: 0; width: 220px; background: rgba(10,15,25,0.9); border: 1px solid var(--glass-border); border-radius: 20px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.4s; }
+        .theme-control.active .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        .mode-opt { padding: 12px 15px; display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; border-radius: 12px; transition: 0.3s; font-size: 0.95rem; }
+        .mode-opt:hover { background: var(--primary); color: #000; }
 
-        /* المودال (معرض الأعمال) */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 3000; padding: 20px; }
-        .modal.open { display: flex; }
-        .modal-box { background: var(--bg-deep); padding: 30px; border-radius: 30px; border: 1px solid var(--primary); width: 100%; max-width: 700px; text-align: right; }
-        .work-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .work-item { padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px; color: #fff; text-decoration: none; border: 1px solid var(--glass-border); transition: 0.3s; text-align: center; }
-        .work-item:hover { background: var(--primary); color: #000; }
+        .cta-button {
+            background: var(--primary); color: #000; padding: 20px 60px; border-radius: 100px;
+            font-size: 1.3rem; font-weight: 900; border: none; cursor: pointer;
+            box-shadow: 0 10px 30px var(--primary-glow); transition: 0.4s; margin-top: 40px;
+        }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 15px 40px var(--primary); }
+
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: #25d366; border-radius: 25px; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 15px 30px rgba(37,211,102,0.4); }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -114,81 +113,88 @@
     <div class="mesh-bg"></div>
 
     <div class="theme-control" id="themeCtrl">
-        <button class="theme-toggle" onclick="document.getElementById('themeCtrl').classList.toggle('active')">
-            <svg viewBox="0 0 24 24"><path d="M12 3V4M12 20V21M4 12H3M21 12H20M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8Z" stroke="currentColor" stroke-width="2"/></svg>
+        <button class="theme-btn" onclick="document.getElementById('themeCtrl').classList.toggle('active')">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
         </button>
-        <div class="theme-dropdown">
-            <a href="#" class="dropdown-item" onclick="setTheme(0)">🌌 ليلي كلاسيك</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(1)">☀️ نهاري مشرق</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(2)">🌇 غروب دافئ</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(3)">🌊 محيط عميق</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(4)">🌿 غابة هادئة</a>
+        <div class="dropdown">
+            <a href="#" class="mode-opt" onclick="setTheme(0)">🌌 الفضاء العميق</a>
+            <a href="#" class="mode-opt" onclick="setTheme(1)">☀️ النقاء العصري</a>
+            <a href="#" class="mode-opt" onclick="setTheme(2)">🌇 الشفق الساحر</a>
+            <a href="#" class="mode-opt" onclick="setTheme(3)">🌊 نبض المحيط</a>
+            <a href="#" class="mode-opt" onclick="setTheme(4)">🌿 واحة الهدوء</a>
         </div>
     </div>
 
     <nav class="navbar"><div class="nav-logo">TÈNVORA</div></nav>
 
     <main>
-        <section>
-            <h1 class="logo-glow reveal">Tènvora</h1>
-            <p class="reveal">1. نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة.</p>
-            <div class="img-container reveal"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Work"></div>
-            <p class="reveal">2. نتخصص في إنشاء المواقع الإلكترونية التي تجمع بين الجماليات العصرية والأداء التقني القوي.</p>
-            <p class="reveal">3. نؤمن بأن العظمة تكمن في التفاصيل، لذلك نتميز بـ الدقة في التنفيذ لبناء تاريخ نجاحك غداً.</p>
-        </section>
-
-        <section>
-            <div class="card reveal">
-                <h3>4. السرعة والجودة</h3>
-                <p>نحن نسابق الزمن لنمنحك الصدارة، لأننا نعلم أن كل ثانية تأخير هي فرصة ضائعة الرقمي لبناء تاريخ نجاحك غداً.</p>
+        <section style="text-align: center;">
+            <h1 class="hero-title reveal">Tènvora</h1>
+            <p class="reveal" style="font-size: 1.8rem; font-weight: 600;">نحن لا نصمم مواقع.. نحن نصمم <span class="highlight">مستقبلك الرقمي</span>.</p>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Work">
             </div>
-            <p class="reveal">5. نقدم لك السعر المنصف الذي يعكس قيمة إبداعنا الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">6. آراء عملائنا لا تكذب؛ نحن نثبت التميز في كل سطر برمج نكتبه الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">7. نحن الأفضل حقيقةً، وتجاربنا السابقة هي الدليل القاطع الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <div class="img-container reveal"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Success"></div>
-            <p class="reveal">8. ندرك أن الموقع الجيد هو واجهة شركتك، لذلك نضع خبراتنا الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">9. خدماتنا لا تتوقف عند البرمجة فقط، بل نساعدك في إنشاء الهوية البصرية الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">10. سواء كنت بحاجة إلى شعار يعبر عنك، أو ألوان تحكي قصتك الرقمي لبناء تاريخ نجاحك غداً.</p>
         </section>
 
         <section>
-            <p class="reveal">11. نصنع لك تجربة رقمية متكاملة تضمن تماسك علامتك الرقمية الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">12. مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة احترافية الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">13. نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه الاهتمام الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">14. نحن نعرف كيف نترجم احتياجاتك إلى كود سليم وتصميم مبهر الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">15. السرعة التي نعمل بها هي نتاج خبرة طويلة وفريق متناغم الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">16. نقدم حلولاً مرنة تناسب جميع الميزانيات مع ضمان الجودة الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">17. من أول فكرة حتى لحظة إطلاق موقعك، نحن معك في كل ثانية الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal">18. عملاؤنا هم سفراؤنا، وثقتهم هي رأس مالنا الحقيقي الرقمي لبناء تاريخ نجاحك غداً.</p>
-            <h2 class="reveal" style="color: var(--primary);">19. إذا كنت تبحث عن الدقة والسرعة، فقد وجدت وجهتك الرقمي لبناء تاريخ نجاحك غداً.</h2>
-            <p class="reveal">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح الرقمي لبناء تاريخ نجاحك غداً.</p>
-            
-            <button class="reveal" onclick="toggleModal(true)" style="background: var(--primary); border: none; padding: 15px 40px; border-radius: 50px; font-weight: 900; cursor: pointer; margin-top: 30px;">شاهد أعمالنا</button>
+            <div class="glass-card reveal">
+                <h3>01. الفن والبرمجة في كيان واحد</h3>
+                <p>في <span class="highlight">Tènvora</span>، نحول الأسطر البرمجية الجامدة إلى لوحات فنية تنبض بالحياة. نحن لسنا مجرد مبرمجين، بل مهندسو تجربة المستخدم الذين يضمنون بقاء عميلك داخل موقعك لأطول فترة ممكنة.</p>
+            </div>
 
+            <div class="glass-card reveal">
+                <h3>02. السرعة التي تسبق التوقعات</h3>
+                <p>في زمن السرعة، كل ثانية تأخير تساوي خسارة عميل. نحن نضمن لك أداءً برمجياً هو الأسرع، مما يضع موقعك في مقدمة محركات البحث ويمنح زوارك تجربة انسيابية لا تُنسى.</p>
+            </div>
+
+            <div class="glass-card reveal">
+                <h3>03. الدقة التي تبني الثقة</h3>
+                <p>نحن مهووسون بالتفاصيل. من أصغر أيقونة إلى أعقد خوارزمية، كل شيء في <span class="highlight">Tènvora</span> يتم تنفيذه بدقة متناهية ليعكس قوة واحترافية علامتك التجارية.</p>
+            </div>
+
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80" alt="Teamwork">
+            </div>
+
+            <div class="glass-card reveal" style="border-right: 5px solid var(--primary);">
+                <h3>04. السعر المنصف.. القيمة العظمى</h3>
+                <p>نؤمن بأن الإبداع لا يجب أن يكون باهظ الثمن. نقدم لك باقات مرنة توفر لك أعلى جودة عالمية بأسعار مدروسة تناسب طموحك، لأننا شريك نجاحك ولعسنا مجرد مزود خدمة.</p>
+            </div>
+
+            <div class="glass-card reveal">
+                <h3>05. هوية بصرية تخطف الأنظار</h3>
+                <p>موقعك هو واجهة عملك، ونحن نصنع له هوية بصرية كاملة (Brand Identity) تجعلك تبرز وسط المنافسين. شعارك، ألوانك، وخطوطك.. كلها ستحكي قصة نجاحك.</p>
+            </div>
+
+            <div class="glass-card reveal">
+                <h3>06. دعم فني.. كأننا معك في المكتب</h3>
+                <p>علاقتنا معك لا تنتهي بتسليم الموقع. نحن نوفر لك دعماً تقنياً مستمراً وتحديثات دورية لضمان استقرار وتطور موقعك مع نمو أعمالك.</p>
+            </div>
+
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Success">
+            </div>
+
+            <div class="glass-card reveal" style="text-align: center;">
+                <h2 class="highlight" style="font-size: 2rem;">هل أنت مستعد لتكون الرقم 1؟</h2>
+                <p>انضم إلى قائمة النخبة من عملائنا الذين وثقوا بـ <span class="highlight">Tènvora</span> وحققوا قفزات نوعية في مبيعاتهم وتواجدهم الرقمي.</p>
+                <button class="cta-button" onclick="location.href='https://wa.me/201207847074'">ابدأ مشروعك الآن</button>
+            </div>
+        </section>
+
+        <section style="text-align: center;">
             <div class="social-dock reveal">
                 <a href="https://wa.me/201207847074" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WA"></a>
                 <a href="https://instagram.com/tenvora.dev" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG"></a>
-                <a href="https://facebook.com/share/18KBnYSSDu/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
+                <a href="https://facebook.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
             </div>
+            <p class="reveal" style="margin-top: 30px; opacity: 0.5; font-size: 0.9rem;">جميع الحقوق محفوظة لـ Tènvora Group © 2026</p>
         </section>
     </main>
 
-    <div class="modal" id="modal">
-        <div class="modal-box">
-            <h2 style="color: var(--primary);">معرض أعمالنا</h2>
-            <div class="work-list">
-                <a href="https://hurghada-egypt.com" target="_blank" class="work-item">hurghada-egypt.com</a>
-                <a href="https://apptree.fr" target="_blank" class="work-item">apptree.fr</a>
-                <a href="https://emanalraddadi.com" target="_blank" class="work-item">emanalraddadi.com</a>
-                <a href="https://arkancity.com" target="_blank" class="work-item">arkancity.com</a>
-                <a href="https://mutobastours.com" target="_blank" class="work-item">mutobastours.com</a>
-                <a href="https://tatra-kw.com" target="_blank" class="work-item">tatra-kw.com</a>
-            </div>
-            <button onclick="toggleModal(false)" style="margin-top: 20px; background: transparent; border: 1px solid #ff4444; color: #ff4444; padding: 10px 20px; border-radius: 10px; cursor: pointer;">إغلاق</button>
-        </div>
-    </div>
-
-    <a href="https://wa.me/201207847074" class="whatsapp-float"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" alt="WA"></a>
+    <a href="https://wa.me/201207847074" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WA">
+    </a>
 
     <script>
         function setTheme(idx) {
@@ -203,15 +209,17 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if(e.isIntersecting) e.target.classList.add('active');
-                else e.target.classList.remove('active'); // هذا السطر هو المسؤول عن إعادة الأنيميشن عند الصعود
+                else e.target.classList.remove('active');
             });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        function toggleModal(s) { document.getElementById('modal').classList.toggle('open', s); }
-
-        window.onclick = function(e) { if (!e.target.closest('.theme-control')) document.getElementById('themeCtrl').classList.remove('active'); }
+        window.onclick = function(e) {
+            if (!e.target.closest('.theme-control')) {
+                document.getElementById('themeCtrl').classList.remove('active');
+            }
+        }
     </script>
 </body>
 </html>
