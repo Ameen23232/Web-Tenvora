@@ -26,13 +26,19 @@
             --neon-hover: 0 0 40px rgba(120, 160, 255, 0.5);
             --sunset-img: none;
             --ease-long: cubic-bezier(0.7, 0, 0.3, 1); 
-            /* إضافات لرفع الفخامة */
             --accent: #c084fc;
             --inner-glow: inset 0 0 20px rgba(120, 160, 255, 0.05);
             --menu-bg: rgba(10, 10, 10, 0.9);
         }
 
-        /* [2] تعريفات الأوضاع الخمسة */
+        /* [2] تعريفات الأوضاع الليلية الخمسة المريحة وهادئة */
+        
+        /* 1. الوضع الليلي الكلاسيكي (أصلك) */
+        body.mode-0 {
+            /* استخدمت القيم الافتراضية للـ Root */
+        }
+
+        /* 2. الوضع النهاري (أصلك) */
         body.light-mode {
             --bg-deep: #f0f4f8; --text-high: #1e293b; --text-mid: #475569;
             --glass-border: rgba(0, 0, 0, 0.1); --card-bg: rgba(255, 255, 255, 0.8);
@@ -41,34 +47,34 @@
             --menu-bg: rgba(255, 255, 255, 0.9);
         }
 
+        /* 3. وضع الغروب المتطور (ليلي دافئ) */
         body.sunset-mode {
-            --primary: #ff8c42; --primary-glow: rgba(255, 140, 66, 0.6);
-            --bg-deep: #2d1b2d; --text-high: #fff4e6; --text-mid: #d6b4a1;
-            --glass-border: rgba(255, 140, 66, 0.2); --card-bg: rgba(45, 27, 45, 0.4);
-            --mesh-gradient: linear-gradient(135deg, #42275a 0%, #734b6d 100%);
-            --neon-shadow: 0 0 25px rgba(255, 140, 66, 0.3); --neon-hover: 0 0 50px rgba(255, 140, 66, 0.6);
-            --sunset-img: url('https://images.unsplash.com/photo-1472120482482-d43872440b88?auto=format&fit=crop&w=1920&q=80');
-            --menu-bg: rgba(45, 27, 45, 0.9);
+            --primary: #ff9800; --primary-glow: rgba(255, 152, 0, 0.4);
+            --bg-deep: #211a2d; --text-high: #fff1e1; --text-mid: #d1b8c1;
+            --glass-border: rgba(255, 152, 0, 0.2); --card-bg: rgba(33, 26, 45, 0.4);
+            --mesh-gradient: linear-gradient(135deg, #2d1b2d 0%, #211a2d 100%);
+            --neon-shadow: 0 0 15px rgba(255, 152, 0, 0.2); --neon-hover: 0 0 30px rgba(255, 152, 0, 0.4);
+            --menu-bg: rgba(33, 26, 45, 0.9);
         }
 
-        /* الوضع الهادئ - Serene Mode */
-        body.serene-mode {
-            --primary: #6ee7b7; --primary-glow: rgba(110, 231, 183, 0.3);
-            --bg-deep: #0f172a; --text-high: #ffffff; --text-mid: #a1a1aa;
-            --glass-border: rgba(110, 231, 183, 0.1); --card-bg: rgba(31, 41, 55, 0.4);
-            --mesh-gradient: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
-            --neon-shadow: 0 0 15px rgba(110, 231, 183, 0.1); --neon-hover: 0 0 30px rgba(110, 231, 183, 0.3);
-            --menu-bg: rgba(15, 23, 42, 0.9);
+        /* 4. وضع المحيط العميق (أزرق داكن ليلي) - Deep Ocean */
+        body.ocean-mode {
+            --primary: #00e5ff; --primary-glow: rgba(0, 229, 255, 0.3);
+            --bg-deep: #0a0e1a; --text-high: #e0f2f1; --text-mid: #90a4ae;
+            --glass-border: rgba(0, 229, 255, 0.1); --card-bg: rgba(10, 14, 26, 0.4);
+            --mesh-gradient: radial-gradient(circle at 50% 50%, #0f1c3a 0%, #0a0e1a 100%);
+            --neon-shadow: 0 0 15px rgba(0, 229, 255, 0.1); --neon-hover: 0 0 30px rgba(0, 229, 255, 0.3);
+            --menu-bg: rgba(10, 14, 26, 0.9);
         }
 
-        /* الوضع الراقي - Sophisticated Mode */
-        body.sophisticated-mode {
-            --primary: #f59e0b; --primary-glow: rgba(245, 158, 11, 0.3);
-            --bg-deep: #0a0a0a; --text-high: #fdf2f8; --text-mid: #d1d5db;
-            --glass-border: rgba(245, 158, 11, 0.1); --card-bg: rgba(23, 23, 23, 0.5);
-            --mesh-gradient: linear-gradient(135deg, #171717 0%, #0a0a0a 100%);
-            --neon-shadow: 0 0 15px rgba(245, 158, 11, 0.1); --neon-hover: 0 0 30px rgba(245, 158, 11, 0.3);
-            --menu-bg: rgba(10, 10, 10, 0.9);
+        /* 5. وضع الغابة المظلمة (أخضر زيتي ليلي) - Dark Forest */
+        body.forest-mode {
+            --primary: #4caf50; --primary-glow: rgba(76, 175, 80, 0.3);
+            --bg-deep: #0a110a; --text-high: #f1f8e9; --text-mid: #78909c;
+            --glass-border: rgba(76, 175, 80, 0.1); --card-bg: rgba(10, 17, 10, 0.4);
+            --mesh-gradient: linear-gradient(135deg, #101910 0%, #0a110a 100%);
+            --neon-shadow: 0 0 15px rgba(76, 175, 80, 0.1); --neon-hover: 0 0 30px rgba(76, 175, 80, 0.3);
+            --menu-bg: rgba(10, 17, 10, 0.9);
         }
 
         * { 
@@ -77,35 +83,27 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* [3] التجاوب وتحسين الأداء في الـ Body */
         body {
             background-color: var(--bg-deep); color: var(--text-high);
             font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; line-height: 1.8;
             display: flex; flex-direction: column; align-items: center; text-align: center;
-            transition: background-color 1.2s var(--ease-long), color 0.8s var(--ease-long);
+            transition: background-color 0.8s var(--ease-long), color 0.6s var(--ease-long);
+            /* إزالة الـ Backdrop Blur من الـ Body لأنه ثقيل */
         }
 
-        /* [إصلاح المؤشر] */
-        .cursor-dot {
-            width: 8px; height: 8px; background-color: var(--primary);
-            position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000;
-            transition: transform 0.1s; transform: translate(-50%, -50%);
-        }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 2px solid var(--primary-glow);
-            position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999;
-            transition: transform 0.15s ease-out; transform: translate(-50%, -50%);
-        }
+        /* [تم إزالة المؤشر المخصص لحل مشكلة النقطة] */
 
         .logo-glow, .highlight-text, .nav-logo, h3, .reveal {
             text-shadow: 0 0 8px var(--primary-glow);
-            transition: text-shadow 0.5s ease;
+            transition: text-shadow 0.4s ease;
         }
         
         .logo-glow:hover, .highlight-text:hover, .nav-logo:hover {
             text-shadow: 0 0 25px var(--primary), 0 0 10px var(--primary);
         }
 
-        .reveal.active { animation: textPulse 1.8s ease-out forwards; }
+        .reveal.active { animation: textPulse 1.5s ease-out forwards; }
 
         @keyframes textPulse {
             0% { text-shadow: 0 0 0px transparent; filter: blur(5px); opacity: 0; }
@@ -118,32 +116,32 @@
             background-image: var(--sunset-img);
             background-size: cover; background-position: center;
             filter: blur(25px) brightness(0.6);
-            opacity: 0; transition: opacity 1.5s var(--ease-long);
+            opacity: 0; transition: opacity 1s var(--ease-long);
         }
         body.sunset-mode .sunset-overlay { opacity: 1; }
-        .mesh-bg { position: fixed; inset: 0; z-index: -1; background: var(--mesh-gradient); transition: 1.2s var(--ease-long); }
+        .mesh-bg { position: fixed; inset: 0; z-index: -1; background: var(--mesh-gradient); transition: 1s var(--ease-long); }
 
-        /* [3] أزرار عائمة مطورة مع القائمة المنسدلة */
+        /* [4] أزرار عائمة مطورة ومثبتة في الأعلى */
         .theme-control {
-            position: fixed; top: 25px; left: 25px; z-index: 1001;
+            position: fixed; top: 15px; left: 15px; z-index: 1001;
             display: flex; flex-direction: column; align-items: flex-end;
             cursor: pointer;
         }
         
         .theme-toggle {
-            background: rgba(120, 160, 255, 0.2); border: 1px solid var(--glass-border); 
+            background: rgba(var(--text-high), 0.1); border: 1px solid var(--glass-border); 
             width: 45px; height: 45px; backdrop-filter: blur(10px);
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
             box-shadow: var(--neon-shadow); transition: 0.4s var(--ease-long);
         }
         .theme-toggle:hover { transform: scale(1.1); background: var(--primary); }
-        .theme-toggle svg { fill: white; width: 20px; transition: transform 0.4s; }
+        .theme-toggle svg { fill: currentColor; width: 20px; transition: transform 0.4s; }
         .theme-control.active .theme-toggle svg { transform: rotate(180deg); }
 
         .theme-dropdown {
             background: var(--menu-bg); border: 1px solid var(--glass-border);
             border-radius: 15px; backdrop-filter: blur(15px);
-            position: absolute; top: 55px; left: 0; width: 220px;
+            position: absolute; top: 55px; left: 0; width: clamp(200px, 40vw, 240px);
             box-shadow: var(--neon-shadow); overflow: hidden;
             max-height: 0; opacity: 0; transform: translateY(-20px) scale(0.9);
             transition: max-height 0.6s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.4s var(--ease-long), transform 0.5s var(--ease-long);
@@ -160,8 +158,8 @@
             text-align: right; text-decoration: none; border-bottom: 1px solid var(--glass-border);
         }
         .dropdown-item:last-child { border-bottom: none; }
-        .dropdown-item:hover { background: rgba(120, 160, 255, 0.1); color: var(--text-high); }
-        .dropdown-item.active { background: rgba(120, 160, 255, 0.2); color: var(--primary); font-weight: bold; }
+        .dropdown-item:hover { background: rgba(var(--primary), 0.1); color: var(--text-high); }
+        .dropdown-item.active { background: rgba(var(--primary), 0.2); color: var(--primary); font-weight: bold; }
         .item-icon { width: 20px; height: 20px; fill: currentColor; }
         .item-text-container { display: flex; flex-direction: column; align-items: flex-start; }
         .item-text { font-size: 1rem; }
@@ -176,101 +174,99 @@
         .whatsapp-float:hover { transform: scale(1.15) rotate(-5deg); box-shadow: 0 0 30px #25d366; }
         .whatsapp-float img { width: 35px; height: 35px; }
 
+        /* [5] تجاوز كامل (Full Responsiveness) للـ Navbar والجسم */
         .navbar { 
-            position: fixed; top: 0; width: 100%; padding: 20px 8%; 
+            position: fixed; top: 0; width: 100%; padding: 15px 5%; 
             display: flex; justify-content: center; z-index: 1000; 
-            background: rgba(var(--bg-deep), 0.5); backdrop-filter: blur(20px); 
+            background: rgba(var(--bg-deep), 0.5); backdrop-filter: blur(15px); 
             border-bottom: 1px solid var(--glass-border); 
         }
-        .nav-logo { font-size: 26px; font-weight: 900; color: var(--primary); letter-spacing: 4px; text-shadow: var(--neon-shadow); }
+        .nav-logo { font-size: clamp(20px, 5vw, 26px); font-weight: 900; color: var(--primary); letter-spacing: clamp(2px, 1vw, 4px); text-shadow: var(--neon-shadow); }
 
-        main { width: 100%; display: flex; flex-direction: column; align-items: center; }
-        section { padding: 120px 10%; width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
+        main { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 80px; }
+        section { padding: clamp(60px, 10vh, 120px) clamp(10px, 5vw, 10%); width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
         
-        .hero { min-height: 100vh; justify-content: center; background: radial-gradient(circle at top, rgba(120, 160, 255, 0.05), transparent 70%); }
+        .hero { min-height: 90vh; justify-content: center; background: radial-gradient(circle at top, rgba(var(--primary), 0.05), transparent 70%); }
         
         .logo-glow { 
-            font-size: clamp(70px, 15vw, 150px); font-weight: 950; 
+            font-size: clamp(50px, 15vw, 150px); font-weight: 950; 
             background: linear-gradient(180deg, var(--text-high) 30%, var(--primary)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: float 5s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
-        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-25px) scale(1.02); } }
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.02); } }
 
-        .reveal { opacity: 0; transform: translateY(60px); transition: 1.5s var(--ease-long); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s var(--ease-long); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .img-container {
             width: 100%; max-width: 900px; margin: 50px auto;
-            border-radius: 50px; overflow: hidden;
+            border-radius: clamp(20px, 5vw, 50px); overflow: hidden;
             border: 1px solid var(--glass-border);
-            box-shadow: var(--neon-shadow); transition: 1s var(--ease-long);
+            box-shadow: var(--neon-shadow); transition: 0.8s var(--ease-long);
             position: relative;
         }
         .img-container img { width: 100%; height: auto; display: block; transition: 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-        .img-container:hover { transform: translateY(-10px) scale(1.02); border-color: var(--primary); box-shadow: var(--neon-hover); }
-        .img-container:hover img { transform: scale(1.1); filter: brightness(1.1); }
+        .img-container:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: var(--neon-hover); }
+        .img-container:hover img { transform: scale(1.05); filter: brightness(1.1); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; margin: 70px 0; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 3vw, 35px); margin: 60px 0; width: 100%; }
         .card { 
             background: var(--card-bg); border: 1px solid var(--glass-border); 
-            padding: 45px; border-radius: 40px; transition: 0.6s var(--ease-long);
-            box-shadow: var(--neon-shadow); backdrop-filter: blur(15px);
+            padding: clamp(20px, 5vw, 45px); border-radius: clamp(20px, 5vw, 40px); transition: 0.5s var(--ease-long);
+            box-shadow: var(--neon-shadow); backdrop-filter: blur(10px);
             display: flex; flex-direction: column; align-items: center;
             box-shadow: var(--inner-glow);
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-15px); background: rgba(120, 160, 255, 0.05); }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(var(--primary), 0.05); }
 
-        .highlight-text { font-size: 2.2rem; font-weight: 800; color: var(--text-high); margin-bottom: 25px; line-height: 1.4; }
+        .highlight-text { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; color: var(--text-high); margin-bottom: 25px; line-height: 1.4; }
 
         .btn-neon {
-            display: inline-block; padding: 22px 65px; border-radius: 100px; 
-            background: var(--primary); color: white; border: none;
+            display: inline-block; padding: clamp(15px, 2vw, 22px) clamp(30px, 5vw, 65px); border-radius: 100px; 
+            background: var(--primary); color: #fff; border: none;
             cursor: pointer; font-weight: 800; text-decoration: none;
-            box-shadow: var(--neon-hover); transition: 0.5s; font-size: 20px;
+            box-shadow: var(--neon-hover); transition: 0.4s; font-size: clamp(16px, 2vw, 20px);
             letter-spacing: 1px;
         }
-        .btn-neon:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 20px 40px rgba(120, 160, 255, 0.4); }
+        .btn-neon:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 15px 30px rgba(var(--primary), 0.4); }
 
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(30px); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: 0.6s; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: 0.5s; }
         .modal.open { display: flex; opacity: 1; }
         .modal-box { 
             width: 90%; max-width: 850px; max-height: 80vh; overflow-y: auto;
-            background: var(--bg-deep); padding: 50px; border-radius: 50px; border: 1px solid var(--primary); 
-            box-shadow: 0 0 100px rgba(120, 160, 255, 0.2); transform: translateY(100px); transition: 0.6s;
+            background: var(--bg-deep); padding: clamp(20px, 5vw, 50px); border-radius: clamp(20px, 5vw, 50px); border: 1px solid var(--primary); 
+            box-shadow: 0 0 100px rgba(var(--primary), 0.2); transform: translateY(50px); transition: 0.5s;
         }
         .modal.open .modal-box { transform: translateY(0); }
 
         .back-arrow-btn {
             background: var(--primary); border: none; cursor: pointer;
             width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
-            border-radius: 20px; color: white; box-shadow: 0 10px 20px rgba(120, 160, 255, 0.3);
+            border-radius: 20px; color: #fff; box-shadow: 0 10px 20px rgba(var(--primary), 0.3);
             transition: 0.4s; margin-bottom: 30px;
         }
 
-        .work-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        .work-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; width: 100%; }
         .work-item {
-            padding: 25px; background: rgba(255,255,255,0.03); border-radius: 25px;
+            padding: 20px; background: rgba(255,255,255,0.03); border-radius: 20px;
             color: var(--text-high); text-decoration: none; border: 1px solid var(--glass-border);
-            transition: 0.4s; font-weight: 600; font-size: 1.1rem;
+            transition: 0.3s; font-weight: 600; font-size: 1rem;
         }
-        .work-item:hover { border-color: var(--primary); transform: scale(1.05); background: var(--primary); color: #000; }
+        .work-item:hover { border-color: var(--primary); transform: scale(1.02); background: var(--primary); color: #000; }
 
-        .social-dock { display: flex; gap: 30px; justify-content: center; margin: 50px 0; }
+        .social-dock { display: flex; gap: clamp(15px, 3vw, 30px); justify-content: center; margin: 40px 0; }
         .social-dock a { 
-            width: 70px; height: 70px; background: var(--card-bg); border-radius: 25px; 
-            display: flex; align-items: center; justify-content: center; transition: 0.5s; 
+            width: clamp(50px, 6vw, 70px); height: clamp(50px, 6vw, 70px); background: var(--card-bg); border-radius: 20px; 
+            display: flex; align-items: center; justify-content: center; transition: 0.4s; 
             border: 1px solid var(--glass-border); box-shadow: var(--neon-shadow);
         }
-        .social-dock a:hover { transform: translateY(-12px) rotate(10deg); border-color: var(--primary); background: rgba(120, 160, 255, 0.1); }
+        .social-dock a:hover { transform: translateY(-8px) rotate(5deg); border-color: var(--primary); background: rgba(var(--primary), 0.1); }
 
-        @media (max-width: 600px) { .work-list { grid-template-columns: 1fr; } .logo-glow { font-size: 60px; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="cursor-dot" id="dot"></div>
-    <div class="cursor-outline" id="outline"></div>
     <div class="sunset-overlay"></div>
     <div class="mesh-bg"></div>
 
@@ -282,36 +278,36 @@
             <a href="#" class="dropdown-item active" onclick="setTheme(0)" id="mode-0">
                 <svg class="item-icon" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/></svg>
                 <div class="item-text-container">
-                    <span class="item-text">الوضع الليلي</span>
-                    <span class="item-desc">غموض وهيبة رقمية</span>
+                    <span class="item-text">الليلي الكلاسيكي</span>
+                    <span class="item-desc">غموض وهيبة رقمية (أصلك)</span>
                 </div>
             </a>
             <a href="#" class="dropdown-item" onclick="setTheme(1)" id="mode-1">
                 <svg class="item-icon" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg>
                 <div class="item-text-container">
                     <span class="item-text">الوضع النهاري</span>
-                    <span class="item-desc">وضوح وشفافية عصرية</span>
+                    <span class="item-desc">وضوح وشفافية عصرية (أصلك)</span>
                 </div>
             </a>
             <a href="#" class="dropdown-item" onclick="setTheme(2)" id="mode-2">
                 <svg class="item-icon" viewBox="0 0 24 24"><path d="M6.7 9.29L12 4l5.3 5.29-1.41 1.42L13 7.83V13h-2V7.83L8.11 10.7 6.7 9.29M20 19H4v2h16v-2z"/></svg>
                 <div class="item-text-container">
                     <span class="item-text">وضع الغروب</span>
-                    <span class="item-desc">دفء وألوان سحرية</span>
+                    <span class="item-desc">دفء ليلى مريح للعين</span>
                 </div>
             </a>
             <a href="#" class="dropdown-item" onclick="setTheme(3)" id="mode-3">
                 <svg class="item-icon" viewBox="0 0 24 24"><path d="M12 1L9 11l10-10L10-1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg>
                 <div class="item-text-container">
-                    <span class="item-text">الوضع الهادئ</span>
-                    <span class="item-desc">أزرق مخضر مريح للعين</span>
+                    <span class="item-text">المحيط العميق</span>
+                    <span class="item-desc">أزرق داكن وهادئ للأعصاب</span>
                 </div>
             </a>
             <a href="#" class="dropdown-item" onclick="setTheme(4)" id="mode-4">
                 <svg class="item-icon" viewBox="0 0 24 24"><path d="M12 1L9 11l10-10L10-1 1zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
                 <div class="item-text-container">
-                    <span class="item-text">الوضع الراقي</span>
-                    <span class="item-desc">فحمي ونحاسي كلاسيكي</span>
+                    <span class="item-text">الغابة المظلمة</span>
+                    <span class="item-desc">أخضر زيتي بارد وعميق</span>
                 </div>
             </a>
         </div>
@@ -334,7 +330,7 @@
             <div class="img-container reveal">
                 <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Tech">
             </div>
-            <p class="reveal">3. نؤمن بأن العظمة تكمن في التفاصيل، لذلك نتميز بـ الدقة في التنفيذ وك وكأن كل موقع هو تحفة فنية فريدة تحكي قصتك الرقمية.</p>
+            <p class="reveal">3. نؤمن بأن العظمة تكمن في التفاصيل، لذلك نتميز بـ الدقة في التنفيذ وكأن كل موقع هو تحفة فنية فريدة تحكي قصتك الرقمية لبناء تاريخ نجاحك غداً.</p>
             <p class="reveal" style="font-weight: 800; color: var(--primary);">نحن لا نبني مواقع، نحن نبني هويات رقمية خالدة تتحدث لغة النجاح.</p>
         </section>
 
@@ -356,11 +352,11 @@
                     <p>نحن الأفضل، وهذا ليس مجرد شعار، بل حقيقة تؤكدها تجارب من تعاملوا معنا ووثقوا بخبراتنا.</p>
                 </div>
                 <div class="card reveal">
-                    <h3>دعم ما بعد الإطلاق</h3>
-                    <p>رحلتنا معك تبدأ عند استلامك الموقع، حيث نوفر لك حماية ودعماً تقنياً يضمن استمرار تألقك.</p>
+                    <h3>دعم ما بعد الإطلاق لبناء تاريخ نجاحك غداً</h3>
+                    <p>رحلتنا معك تبدأ عند استلامك الموقع، حيث نوفر لك حماية ودعماً تقنياً يضمن استمرار تألقك الرقمي لبناء تاريخ نجاحك غداً.</p>
                 </div>
             </div>
-            <p class="reveal">8. ندرك أن الموقع الجيد هو واجهة شركتك، لذلك نضع خبراتنا لخدمة نجاحك.</p>
+            <p class="reveal">8. ندرك أن الموقع الجيد هو واجهة شركتك، لذلك نضع خبراتنا لخدمة نجاحك الرقمي لبناء تاريخ نجاحك غداً.</p>
         </section>
 
         <section>
@@ -369,35 +365,35 @@
                 <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80" alt="Identity">
             </div>
             <p class="reveal">10. سواء كنت بحاجة إلى شعار يعبر عنك، أو ألوان تحكي قصتك، نحن نصنع لك هوية متكاملة قبل بناء الموقع.</p>
-            <p class="reveal" style="padding: 20px; border-left: 4px solid var(--primary); margin: 20px 0;">11. نصنع لك تجربة رقمية متكاملة، حيث يلتقي الإبداع البصري مع الدقة البرمجية لضمان تماسك علامتك.</p>
-            <p class="reveal">12. مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة رقمية احترافية تعكس قوة علامتك التجارية.</p>
+            <p class="reveal" style="padding: 20px; border-left: 4px solid var(--primary); margin: 20px 0;">11. نصنع لك تجربة رقمية متكاملة، حيث يلتقي الإبداع البصري مع الدقة البرمجية لضمان تماسك علامتك الرقمية لبناء تاريخ نجاحك غداً.</p>
+            <p class="reveal">12. مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة رقمية احترافية تعكس قوة علامتك التجارية الرقمية لبناء تاريخ نجاحك غداً.</p>
         </section>
 
         <section>
             <div class="img-container reveal">
                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Team">
             </div>
-            <p class="reveal">13. نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه من الاهتمام والدقة ما يضمن نجاحه.</p>
+            <p class="reveal">13. نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه من الاهتمام والدقة ما يضمن نجاحه الرقمي لبناء تاريخ نجاحك غداً.</p>
             <p class="reveal" style="font-style: italic; color: var(--accent);">رؤيتك هي وقود إلهامنا، ونجاحك هو الجائزة التي نسعى لتحقيقها في كل كود نكتبه.</p>
-            <p class="reveal">14. نحن نعرف كيف نترجم احتياجاتك إلى كود سليم، وكيف نحول رؤيتك إلى تصميم مبهر.</p>
-            <p class="reveal">15. السرعة التي نعمل بها لا تأتي على حساب الدقة؛ بل هي نتاج خبرة طويلة وفريق عمل متكامل ومتناغم.</p>
+            <p class="reveal">14. نحن نعرف كيف نترجم احتياجاتك إلى كود سليم، وكيف نحول رؤيتك إلى تصميم مبهر لبناء تاريخ نجاحك غداً.</p>
+            <p class="reveal">15. السرعة التي نعمل بها لا تأتي على حساب الدقة؛ بل هي نتاج خبرة طويلة وفريق عمل متكامل ومتناغم الرقمي لبناء تاريخ نجاحك غداً.</p>
         </section>
 
         <section>
             <div class="card reveal" style="width: 100%; border: 1px dashed var(--primary);">
-                <p>16. نقدم حلولاً مرنة تناسب جميع الميزانيات، مع ضمان الجودة العالية التي تستحقها.</p>
-                <p>17. من أول فكرة حتى لحظة إطلاق موقعك، نحن معك بكل خطوة، نرسم ونبرمج ونبدع.</p>
-                <p>18. عملاؤنا هم سفراؤنا، وثقتهم الغالية هي رأس مالنا الحقيقي الذي نفتخر به.</p>
+                <p>16. نقدم حلولاً مرنة تناسب جميع الميزانيات، مع ضمان الجودة العالية التي تستحقها الرقمي لبناء تاريخ نجاحك غداً.</p>
+                <p>17. من أول فكرة حتى لحظة إطلاق موقعك، نحن معك بكل خطوة، نرسم ونبرمج ونبدع الرقمي لبناء تاريخ نجاحك غداً.</p>
+                <p>18. عملاؤنا هم سفراؤنا، وثقتهم الغالية هي رأس مالنا الحقيقي الذي نفتخر به الرقمي لبناء تاريخ نجاحك غداً.</p>
             </div>
             <div class="img-container reveal" style="margin-top: 60px;">
                 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Success">
             </div>
-            <h2 class="highlight-text reveal" style="margin-top: 40px; font-size: 3rem;">19. إذا كنت تبحث عن شريك تقني يملك الدقة، السرعة، السعر المنافس، والإبداع البصري، فقد وجدته.</h2>
-            <p class="reveal" style="font-size: 2rem; color: var(--primary); font-weight: 900;">TÈNVORA: نكتب المستقبل اليوم لبناء تاريخ نجاحك غداً.</p>
-            <p class="reveal" style="font-size: 1.5rem; color: var(--text-high); font-weight: 800;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
+            <h2 class="highlight-text reveal" style="margin-top: 40px; font-size: 3rem;">19. إذا كنت تبحث عن شريك تقني يملك الدقة، السرعة، السعر المنافس، والإبداع البصري، فقد وجدته. الرقمي لبناء تاريخ نجاحك غداً.</h2>
+            <p class="reveal" style="font-size: 2rem; color: var(--primary); font-weight: 900;">TÈNVORA: نكتب المستقبل اليوم לבناء تاريخ نجاحك غداً.</p>
+            <p class="reveal" style="font-size: 1.5rem; color: var(--text-high); font-weight: 800;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح. الرقمي لبناء تاريخ نجاحك غداً.</p>
 
             <div class="reveal" style="margin-top: 50px;">
-                <button class="btn-neon" onclick="toggleModal(true)">شاهد سجل إنجازاتنا</button>
+                <button class="btn-neon" onclick="toggleModal(true)">شاهد سجل إنجازاتنا المشرفة</button>
             </div>
 
             <div class="social-dock reveal">
@@ -406,7 +402,7 @@
                 <a href="https://www.facebook.com/share/18KBnYSSDu/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"></a>
             </div>
             
-            <p class="reveal" style="font-size: 0.8rem; opacity: 0.5;">حقوق التصميم والبرمجة محفوظة لـ Tènvora © 2026</p>
+            <p class="reveal" style="font-size: 0.8rem; opacity: 0.5;">حقوق التصميم والبرمجة محفوظة لـ Tènvora Group © 2026</p>
         </section>
     </main>
 
@@ -431,35 +427,9 @@
     </div>
 
     <script>
-        // [إصلاح المؤشر] - نظام تتبع متطور يمنع الالتصاق
-        const dot = document.getElementById('dot');
-        const outline = document.getElementById('outline');
+        // [7] تم حذف كود المؤشر المخصص لحل مشكلة النقطةنهائياً
 
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            dot.style.left = `${posX}px`;
-            dot.style.top = `${posY}px`;
-
-            // جعل الإطار الخارجي يتبع بنعومة أكبر
-            outline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // تأثير النبض عند الضغط
-        window.addEventListener('mousedown', () => {
-            outline.style.transform = 'translate(-50%, -50%) scale(0.5)';
-            dot.style.transform = 'translate(-50%, -50%) scale(2)';
-        });
-        window.addEventListener('mouseup', () => {
-            outline.style.transform = 'translate(-50%, -50%) scale(1)';
-            dot.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-
-        /* [5] نظام تبديل السمات الجديد - القائمة المنسدلة */
+        /* نظام تبديل السمات الجديد لبناء مستقبلك - القائمة المنسدلة */
         const themeControl = document.getElementById('themeControl');
         
         function toggleThemeMenu() {
@@ -468,24 +438,24 @@
 
         function setTheme(modeIndex) {
             const body = document.body;
-            body.classList.remove('light-mode', 'sunset-mode', 'serene-mode', 'sophisticated-mode');
+            body.classList.remove('light-mode', 'sunset-mode', 'ocean-mode', 'forest-mode');
             
             // إزالة حالة الـ Active من جميع العناصر
             document.querySelectorAll('.dropdown-item').forEach(item => item.classList.remove('active'));
-            // إضافة حالة الـ Active للعنصر المختار
+            // إضافة حالة الـ Active للعنصر المختار لبناء مستقبلك
             document.getElementById(`mode-${modeIndex}`).classList.add('active');
             
-            // تطبيق السمة الجديدة
+            // تطبيق السمة الجديدة لبناء مستقبلك
             if (modeIndex === 1) body.classList.add('light-mode');
             else if (modeIndex === 2) body.classList.add('sunset-mode');
-            else if (modeIndex === 3) body.classList.add('serene-mode');
-            else if (modeIndex === 4) body.classList.add('sophisticated-mode');
+            else if (modeIndex === 3) body.classList.add('ocean-mode');
+            else if (modeIndex === 4) body.classList.add('forest-mode');
             
-            // تحديث أيقونة الزر الرئيسي
+            // تحديث أيقونة الزر الرئيسي لبناء مستقبلكلبناء مستقبلك
             const currentIcon = document.querySelector(`#mode-${modeIndex} .item-icon`).innerHTML;
             document.querySelector('#theme-icon').innerHTML = currentIcon;
             
-            // إغلاق القائمة بعد الاختيار
+            // إغلاق القائمة بعد الاختيار لبناء مستقبلك
             toggleThemeMenu();
         }
 
