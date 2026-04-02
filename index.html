@@ -3,171 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tènvora | سلاسة رقمية مطلقة</title>
+    <title>Tènvora | الفخامة الرقمية</title>
     <style>
-        /* [1] منع النسخ والحفاظ على الأداء */
-        body {
-            user-select: none;
-            -webkit-user-select: none;
-            background-color: #05070a;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #f8fafc;
-            /* منع التهنيج أثناء التمرير */
-            -webkit-overflow-scrolling: touch;
-        }
-
+        /* [1] الأساسيات ومنع النسخ */
         :root {
-            --primary: #78a0ff;
-            --bg-deep: #05070a;
-            --text-mid: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --menu-bg: #0f1218; /* استبدال الـ Blur بلون صلب وسريع */
+            --primary: #78a0ff; 
+            --primary-glow: rgba(120, 160, 255, 0.5);
+            --bg-deep: #05070a; 
+            --text-high: #f8fafc; 
+            --text-mid: #94a3b8; 
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --neon-shadow: 0 0 20px var(--primary-glow);
         }
 
-        /* أوضاع ليلية مريحة جداً وسريعة الأداء */
-        body.light-mode { --bg-deep: #f0f4f8; --text-high: #1e293b; --primary: #3b82f6; }
-        body.sunset-mode { --bg-deep: #1a1625; --primary: #ff9800; }
-        body.ocean-mode { --bg-deep: #050b1a; --primary: #00d2ff; }
-        body.forest-mode { --bg-deep: #081008; --primary: #4caf50; }
+        /* الأوضاع الليلية الـ 5 (ألوان عميقة ومريحة) */
+        body.mode-0 { --bg-deep: #05070a; --primary: #78a0ff; } /* ليلي أزرق */
+        body.mode-1 { --bg-deep: #f0f4f8; --text-high: #1e293b; --primary: #3b82f6; --glass: rgba(0,0,0,0.05); } /* نهاري */
+        body.mode-2 { --bg-deep: #1a1425; --primary: #ff7e5f; --primary-glow: rgba(255,126,95,0.4); } /* غروب ليلى */
+        body.mode-3 { --bg-deep: #05161a; --primary: #00f2ff; --primary-glow: rgba(0,242,255,0.3); } /* محيط عميق */
+        body.mode-4 { --bg-deep: #0d1a0d; --primary: #4eff91; --primary-glow: rgba(78,255,145,0.3); } /* غابة زمردية */
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-high);
+            margin: 0; font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden; user-select: none; -webkit-user-select: none;
+            transition: background-color 0.5s ease;
+        }
 
-        /* الخلفية الشبكية المحسنة */
-        .mesh-bg {
+        /* [2] حل مشكلة التهنيج: خلفية ضبابية ثابتة لا تتحرك مع السكرول */
+        .glow-bg {
             position: fixed; inset: 0; z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #0f172a 0%, var(--bg-deep) 100%);
-            transition: background 0.5s ease;
+            background: radial-gradient(circle at 20% 20%, var(--primary-glow) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.1) 0%, transparent 40%);
+            filter: blur(80px); /* الضبابية هنا ثابتة، لذا لا تسبب ثقل */
         }
 
-        /* [2] زر التحكم الثابت في الأعلى - سلاسة فائقة */
+        /* [3] زر التحكم المنسدل (Dropdown) ثابت في الأعلى */
         .theme-control {
-            position: fixed; top: 20px; left: 20px; z-index: 2000;
+            position: fixed; top: 20px; left: 20px; z-index: 9999;
         }
-        
-        .theme-toggle {
-            background: var(--primary); border: none;
+        .theme-btn {
             width: 50px; height: 50px; border-radius: 15px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px); cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--neon-shadow); transition: 0.3s;
         }
-        .theme-toggle:active { transform: scale(0.9); }
-        .theme-toggle svg { fill: #fff; width: 24px; }
+        .theme-btn:hover { transform: scale(1.1); border-color: var(--primary); }
+        
+        .dropdown {
+            position: absolute; top: 60px; left: 0; width: 200px;
+            background: rgba(10, 15, 25, 0.95); border: 1px solid var(--glass-border);
+            border-radius: 15px; opacity: 0; visibility: hidden;
+            transform: translateY(-10px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 10px;
+        }
+        .theme-control.active .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .mode-opt {
+            padding: 12px; display: flex; align-items: center; gap: 10px;
+            color: #fff; text-decoration: none; border-radius: 10px; transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .mode-opt:hover { background: var(--primary); color: #000; }
 
-        .theme-dropdown {
-            position: absolute; top: 65px; left: 0; width: 220px;
-            background: var(--menu-bg); border-radius: 18px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            opacity: 0; transform: translate3d(0, -10px, 0) scale(0.95);
-            pointer-events: none; transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        .theme-control.active .theme-dropdown {
-            opacity: 1; transform: translate3d(0, 0, 0) scale(1);
-            pointer-events: auto;
-        }
-
-        .dropdown-item {
-            padding: 14px 20px; display: flex; align-items: center; gap: 12px;
-            color: #fff; text-decoration: none; border-bottom: 1px solid var(--glass-border);
-            transition: background 0.2s;
-        }
-        .dropdown-item:hover { background: rgba(255,255,255,0.05); }
-        .dropdown-item.active { background: rgba(var(--primary), 0.1); color: var(--primary); }
-
-        /* [3] المحتوى والتجاوب */
+        /* [4] التنسيق العام والنيون */
         .navbar {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(5, 7, 10, 0.8); z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 20px;
+            display: flex; justify-content: center; z-index: 1000;
+            background: rgba(var(--bg-deep), 0.2); backdrop-filter: blur(5px);
         }
-        .nav-logo { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 3px; }
+        .nav-logo { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 4px; text-shadow: var(--neon-shadow); }
 
-        main { width: 100%; padding-top: 80px; }
-        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        main { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 100px; }
+        section { padding: 40px 10%; width: 100%; max-width: 1000px; }
 
         .logo-glow { 
-            font-size: clamp(60px, 15vw, 120px); font-weight: 900;
-            background: linear-gradient(to bottom, #fff, var(--primary));
+            font-size: clamp(60px, 15vw, 120px); font-weight: 950; text-align: center;
+            background: linear-gradient(180deg, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
         }
 
-        /* تأثير الظهور السلس (بدون تهنيج) */
+        /* حل بديل وخفيف لعرض الكلام (Slide & Fade) */
         .reveal {
-            opacity: 0; transform: translate3d(0, 30px, 0);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            will-change: transform, opacity;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            will-change: opacity, transform; /* تحسين أداء الموبايل */
         }
-        .reveal.active { opacity: 1; transform: translate3d(0, 0, 0); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         .img-container {
-            width: 100%; border-radius: 30px; overflow: hidden;
-            margin: 40px 0; border: 1px solid var(--glass-border);
+            width: 100%; border-radius: 40px; overflow: hidden;
+            border: 1px solid var(--glass-border); margin: 40px 0;
+            box-shadow: var(--neon-shadow); transition: 0.5s;
         }
+        .img-container:hover { transform: scale(1.02); border-color: var(--primary); }
         .img-container img { width: 100%; display: block; }
 
-        /* [4] ضبط أيقونات التواصل الاجتماعي في الأسفل */
+        .card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            padding: 30px; border-radius: 30px; margin: 20px 0;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.02);
+        }
+        h3 { color: var(--primary); text-shadow: var(--neon-shadow); margin-bottom: 15px; }
+
+        /* [5] أيقونات التواصل في الأسفل بوزن مثالي */
         .social-dock {
-            display: flex; gap: 20px; justify-content: center;
-            margin-top: 40px; padding-bottom: 40px;
+            display: flex; gap: 25px; justify-content: center; margin: 50px 0;
         }
         .social-dock a {
-            width: 55px; height: 55px; /* حجم مثالي للموبايل */
-            background: #161b22; border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.3s;
+            width: 60px; height: 60px; background: var(--glass);
+            border-radius: 20px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--glass-border); transition: 0.4s;
         }
-        .social-dock a:active { transform: scale(0.9); }
-        .social-dock a img { width: 28px; height: 28px; }
+        .social-dock a:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: var(--neon-shadow); }
+        .social-dock img { width: 30px; height: 30px; }
 
         .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 25px; right: 25px;
-            background: #25d366; border-radius: 50%; z-index: 1500;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+            background: #25d366; border-radius: 22px; display: flex;
+            align-items: center; justify-content: center; z-index: 1000;
+            box-shadow: 0 15px 30px rgba(37,211,102,0.4); transition: 0.3s;
         }
+        .whatsapp-float:hover { transform: scale(1.1); }
 
-        .card {
-            background: #0f1218; padding: 30px; border-radius: 25px;
-            margin: 20px 0; border: 1px solid var(--glass-border);
+        .btn-neon {
+            background: var(--primary); color: #000; padding: 18px 50px;
+            border-radius: 100px; font-weight: 900; border: none; cursor: pointer;
+            box-shadow: var(--neon-shadow); transition: 0.4s; font-size: 1.1rem;
         }
-
-        p { font-size: 1.1rem; line-height: 1.7; color: var(--text-mid); }
+        .btn-neon:hover { transform: translateY(-5px); box-shadow: 0 10px 30px var(--primary); }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="mesh-bg"></div>
+    <div class="glow-bg"></div>
 
-    <div class="theme-control" id="themeControl">
-        <button class="theme-toggle" onclick="toggleThemeMenu()">
-            <svg viewBox="0 0 24 24"><path d="M12 3V4M12 20V21M4 12H3M21 12H20M18.36 5.64L17.65 6.35M6.35 17.65L5.64 18.36M5.64 5.64L6.35 6.35M17.65 17.65L18.36 18.36M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8Z" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="theme-control" id="themeCtrl">
+        <button class="theme-btn" onclick="document.getElementById('themeCtrl').classList.toggle('active')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M17.66 6.34l1.42-1.42"/></svg>
         </button>
-        <div class="theme-dropdown">
-            <a href="#" class="dropdown-item active" onclick="setTheme(0)" id="mode-0">ليلي كلاسيك</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(1)" id="mode-1">نهاري مشرق</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(2)" id="mode-2">غروب دافئ</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(3)" id="mode-3">محيط عميق</a>
-            <a href="#" class="dropdown-item" onclick="setTheme(4)" id="mode-4">غابة هادئة</a>
+        <div class="dropdown">
+            <a href="#" class="mode-opt" onclick="changeMode(0)">🌌 ليلي كلاسيك</a>
+            <a href="#" class="mode-opt" onclick="changeMode(1)">☀️ نهاري مشرق</a>
+            <a href="#" class="mode-opt" onclick="changeMode(2)">🌇 غروب ساحر</a>
+            <a href="#" class="mode-opt" onclick="changeMode(3)">🌊 محيط عميق</a>
+            <a href="#" class="mode-opt" onclick="changeMode(4)">🌿 غابة هادئة</a>
         </div>
     </div>
 
-    <nav class="navbar">
-        <div class="nav-logo">TÈNVORA</div>
-    </nav>
+    <nav class="navbar"><div class="nav-logo">TÈNVORA</div></nav>
 
     <main>
-        <section>
+        <section style="text-align: center;">
             <h1 class="logo-glow reveal">Tènvora</h1>
-            <p class="reveal">1. نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة.</p>
+            <p class="reveal" style="font-size: 1.4rem; color: var(--text-mid);">1. نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة.</p>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Tech">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Work">
             </div>
             <p class="reveal">2. نتخصص في إنشاء المواقع الإلكترونية التي تجمع بين الجماليات العصرية والأداء التقني القوي.</p>
             <p class="reveal">3. نؤمن بأن العظمة تكمن في التفاصيل، لذلك نتميز بـ الدقة في التنفيذ لبناء تاريخ نجاحك غداً.</p>
@@ -175,60 +170,78 @@
 
         <section>
             <div class="card reveal">
-                <h2 style="color: var(--primary);">4. السرعة والجودة</h2>
-                <p>نحن نسابق الزمن لنمنحك الصدارة، لأننا نعلم أن كل ثانية تأخير هي فرصة ضائعة.</p>
+                <h3>4. السرعة الفائقة</h3>
+                <p>في عالم الأعمال، الوقت هو أثمن ما تملك، ونحن نضمن لك السرعة في الإنجاز دون التضحية أبداً بجودة العمل.</p>
+            </div>
+            <p class="reveal">5. نقدم لك السعر المنصف الذي يعكس قيمة إبداعنا، بعيداً عن المبالغة.</p>
+            <p class="reveal">6. آراء عملائنا لا تكذب؛ نحن نثبت التميز في كل سطر برمج نكتبه.</p>
+            <p class="reveal">7. نحن الأفضل حقيقةً، وتجاربنا السابقة مع كبرى الشركات هي الدليل القاطع.</p>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analysis">
             </div>
             <p class="reveal">8. ندرك أن الموقع الجيد هو واجهة شركتك، لذلك نضع خبراتنا لخدمة نجاحك الرقمي.</p>
-            <p class="reveal">9. لكن خدماتنا لا تتوقف عند البرمجة فقط، بل يمكننا مساعدتك أيضاً في إنشاء الهوية البصرية المتكاملة.</p>
+            <p class="reveal">9. خدماتنا لا تتوقف عند البرمجة فقط، بل نساعدك في إنشاء الهوية البصرية المتكاملة.</p>
+            <p class="reveal">10. سواء كنت بحاجة إلى شعار يعبر عنك، أو ألوان تحكي قصتك، نحن هنا من أجلك.</p>
+        </section>
+
+        <section>
+            <div class="card reveal" style="border-right: 5px solid var(--primary);">
+                <p>11. نصنع لك تجربة رقمية متكاملة تضمن تماسك علامتك الرقمية لبناء تاريخ نجاحك غداً.</p>
+                <p>12. مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة احترافية تعكس قوتك.</p>
+            </div>
+            <p class="reveal">13. نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه الاهتمام الكامل.</p>
+            <p class="reveal">14. نحن نعرف كيف نترجم احتياجاتك إلى كود سليم وتصميم مبهر.</p>
+            <div class="img-container reveal">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Team">
+            </div>
+            <p class="reveal">15. السرعة التي نعمل بها هي نتاج خبرة طويلة وفريق متناغم جداً.</p>
+            <p class="reveal">16. نقدم حلولاً مرنة تناسب جميع الميزانيات مع ضمان الجودة العالية.</p>
+            <p class="reveal">17. من أول فكرة حتى لحظة إطلاق موقعك، نحن معك في كل ثانية.</p>
+            <p class="reveal">18. عملاؤنا هم سفراؤنا، وثقتهم هي رأس مالنا الحقيقي.</p>
+            <p class="reveal" style="font-size: 1.8rem; font-weight: 900; color: var(--primary);">19. إذا كنت تبحث عن الدقة والسرعة والإبداع، فقد وجدت وجهتك.</p>
+            <p class="reveal" style="font-size: 1.5rem; color: #fff;">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
         </section>
 
         <section style="text-align: center;">
-            <h2 class="reveal" style="color: #fff;">تواصل معنا الآن</h2>
-            <p class="reveal">20. تواصل معنا اليوم؛ لنصنع معاً هويتك الرقمية ونطلق موقعك إلى آفاق النجاح.</p>
+            <button class="btn-neon reveal">ابدأ رحلتك معنا الآن</button>
             
             <div class="social-dock reveal">
-                <a href="https://wa.me/201207847074" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
-                <a href="https://instagram.com/tenvora.dev" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram"></a>
-                <a href="https://www.facebook.com/share/18KBnYSSDu/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook"></a>
+                <a href="https://wa.me/201207847074"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WA"></a>
+                <a href="https://instagram.com/tenvora.dev"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG"></a>
+                <a href="https://facebook.com"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
             </div>
+            <p style="opacity: 0.3; font-size: 0.8rem;">TÈNVORA DIGITAL GROUP © 2026</p>
         </section>
     </main>
 
     <a href="https://wa.me/201207847074" class="whatsapp-float">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" alt="WA">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WA">
     </a>
 
     <script>
-        // نظام السمات السلس
-        function toggleThemeMenu() {
-            document.getElementById('themeControl').classList.toggle('active');
+        // تبديل الأوضاع
+        function changeMode(idx) {
+            document.body.className = 'mode-' + idx;
+            document.getElementById('themeCtrl').classList.remove('active');
         }
 
-        function setTheme(mode) {
-            const b = document.body;
-            b.classList.remove('light-mode', 'sunset-mode', 'ocean-mode', 'forest-mode');
-            document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
-            document.getElementById(`mode-${mode}`).classList.add('active');
-
-            if(mode === 1) b.classList.add('light-mode');
-            if(mode === 2) b.classList.add('sunset-mode');
-            if(mode === 3) b.classList.add('ocean-mode');
-            if(mode === 4) b.classList.add('forest-mode');
-            
-            toggleThemeMenu();
-        }
-
-        // مراقب الظهور السلس (Performance Optimized)
+        // تأثير الظهور السلس (بدون تهنيج)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if(e.isIntersecting) {
-                    e.target.classList.add('active');
-                    observer.unobserve(e.target); // تشغيل الأنميشن مرة واحدة فقط لتوفير الأداء
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
             });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // إغلاق القائمة عند الضغط في أي مكان
+        window.onclick = function(event) {
+            if (!event.target.closest('.theme-control')) {
+                document.getElementById('themeCtrl').classList.remove('active');
+            }
+        }
     </script>
 </body>
 </html>
