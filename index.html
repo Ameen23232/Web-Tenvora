@@ -3,467 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tènvora | صياغة الفخامة الرقمية</title>
+    <title>Tènvora | الفن الرقمي والابتكار</title>
     
     <style>
-        /* 1. إعدادات الخطوط والمتغيرات الأساسية */
+        /* [1] الأساسيات وإعدادات الألوان (The Core Design System) */
         :root {
-            --primary-color: #78a0ff; 
-            --primary-glow: rgba(120, 160, 255, 0.4);
-            --background-dark: #05070a; 
-            --text-main: #f8fafc; 
-            --text-secondary: #94a3b8; 
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-background: rgba(255, 255, 255, 0.02);
-            --main-gradient: radial-gradient(circle at 50% 50%, #0f172a 0%, #05070a 100%);
-            --neon-glow-shadow: 0 0 35px rgba(120, 160, 255, 0.18);
-            --transition-smooth: cubic-bezier(0.65, 0, 0.35, 1);
-            --ripple-effect-color: rgba(255, 255, 255, 0.25);
+            --primary-color: #78a0ff;
+            --secondary-accent: #a5b4fc;
+            --primary-glow: rgba(120, 160, 255, 0.5);
+            --bg-ultra-dark: #030508;
+            --text-pure: #ffffff;
+            --text-dim: #94a3b8;
+            --glass-stroke: rgba(255, 255, 255, 0.08);
+            --glass-fill: rgba(255, 255, 255, 0.01);
+            --card-radius: 40px;
+            --smooth-logic: cubic-bezier(0.7, 0, 0.3, 1);
+            --ripple-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* تنسيق الوضع المضيء */
-        body.light-mode {
-            --background-dark: #f0f4f8; 
-            --text-main: #1e293b; 
-            --text-secondary: #475569;
-            --glass-border: rgba(0, 0, 0, 0.12); 
-            --card-background: rgba(255, 255, 255, 0.7);
-            --main-gradient: radial-gradient(circle at 50% 50%, #e2e8f0 0%, #f0f4f8 100%);
-            --ripple-effect-color: rgba(0, 0, 0, 0.1);
+        /* تنسيقات الوضع المضيء */
+        body.light-theme {
+            --bg-ultra-dark: #f1f5f9;
+            --text-pure: #0f172a;
+            --text-dim: #475569;
+            --glass-stroke: rgba(0, 0, 0, 0.1);
+            --glass-fill: rgba(255, 255, 255, 0.8);
+            --ripple-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* تنسيق وضع الغروب */
-        body.sunset-mode {
-            --primary-color: #ff8c42; 
-            --background-dark: #2d1b2d; 
-            --text-main: #fff4e6;
-            --text-secondary: #d6b4a1;
-            --main-gradient: linear-gradient(135deg, #42275a 0%, #734b6d 100%);
-            --bg-image-sunset: url('https://images.unsplash.com/photo-1472120482482-d43872440b88?auto=format&fit=crop&w=1920&q=80');
+        /* تنسيقات وضع الغروب */
+        body.sunset-theme {
+            --primary-color: #ff8c42;
+            --bg-ultra-dark: #1a1a2e;
+            --text-pure: #fff4e6;
+            --text-dim: #d6b4a1;
+            --sunset-gradient: linear-gradient(135deg, #2d1b2d 0%, #42275a 100%);
         }
 
-        /* 2. التنسيق العام للجسم والعناصر */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-            cursor: none; /* إخفاء الماوس الافتراضي لاستخدام الماوس المخصص */
+        /* [2] إعدادات الصفحة العامة (Global Reset) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
-            background-color: var(--background-dark); 
-            color: var(--text-main);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            overflow-x: hidden; 
-            line-height: 1.9; 
-            transition: background-color 0.8s var(--transition-smooth);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
+            background-color: var(--bg-ultra-dark);
+            color: var(--text-pure);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+            transition: background 0.8s var(--smooth-logic);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* [3] تأثيرات الإضاءة الخلفية (Atmospheric Glow) */
+        .glow-sphere {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: move-glow 20s infinite alternate;
+        }
+
+        @keyframes move-glow {
+            0% { top: -10%; left: -10%; }
+            100% { bottom: -10%; right: -10%; }
+        }
+
+        /* [4] أنيميشن الظهور (Reveal System) */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s var(--smooth-logic);
+        }
+
+        .reveal-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* [5] نظام الهيدر (Navigation) */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 5%;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-stroke);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .theme-button {
+            background: var(--primary-color);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transition: 0.3s;
+        }
+
+        /* [6] تأثير الضغط (Ripple Effect) */
+        .interactive-btn {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .interactive-btn:active {
+            transform: scale(0.96);
+        }
+
+        .ripple-circle {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            background: var(--ripple-color);
+            animation: ripple-action 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-action {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* [7] أقسام المحتوى (Main Content) */
+        main {
+            padding-top: 160px;
+            width: 100%;
+            max-width: 1100px;
             text-align: center;
         }
 
-        html { scroll-behavior: smooth; }
-
-        /* 3. الماوس المخصص (Custom Cursor) */
-        #custom-cursor {
-            position: fixed;
-            width: 25px;
-            height: 25px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
-            box-shadow: 0 0 20px var(--primary-color);
+        section {
+            padding: 80px 20px;
         }
 
-        /* 4. أنيميشن الظهور (Scroll Reveal) */
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(50px) scale(0.95); 
-            transition: opacity 1.3s var(--transition-smooth), transform 1.3s var(--transition-smooth);
-            will-change: transform, opacity;
-        }
-        .reveal.active { 
-            opacity: 1; 
-            transform: translateY(0) scale(1); 
-        }
-
-        /* 5. أنيميشن الضغط (Press/Ripple Effects) */
-        .btn-interact {
-            position: relative; 
-            overflow: hidden; 
-            transition: transform 0.2s var(--transition-smooth); 
-            cursor: pointer;
-        }
-        .btn-interact:active { transform: scale(0.94); }
-
-        .ripple-span {
-            position: absolute; 
-            border-radius: 50%; 
-            transform: scale(0);
-            animation: ripple-effect 0.7s linear; 
-            background-color: var(--ripple-effect-color);
-            pointer-events: none;
-        }
-        @keyframes ripple-effect { to { transform: scale(4); opacity: 0; } }
-
-        /* 6. الهيكل العلوي والخلفيات المتحركة */
-        .mesh-background { 
-            position: fixed; 
-            inset: 0; 
-            z-index: -1; 
-            background: var(--main-gradient); 
-            transition: 1s; 
-        }
-        
-        .sunset-overlay-layer { 
-            position: fixed; 
-            inset: 0; 
-            z-index: -2; 
-            background-image: var(--bg-image-sunset); 
-            background-size: cover; 
-            opacity: 0; 
-            transition: 1.5s; 
-            filter: blur(40px) brightness(0.4); 
-        }
-        body.sunset-mode .sunset-overlay-layer { opacity: 1; }
-
-        .navbar-top { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            padding: 30px 10%; 
-            z-index: 1000; 
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--glass-border); 
-            display: flex; 
-            justify-content: center;
-        }
-        .brand-logo { 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            letter-spacing: 6px; 
-            color: var(--primary-color); 
-            text-shadow: 0 0 20px var(--primary-glow); 
-        }
-
-        .theme-switcher-btn {
-            position: fixed; 
-            top: 30px; 
-            left: 30px; 
-            z-index: 1100;
-            background: var(--primary-color); 
-            border: none; 
-            width: 55px; 
-            height: 55px;
-            border-radius: 50%; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: var(--neon-glow-shadow);
-        }
-
-        /* 7. محتوى الصفحة الرئيسي */
-        main { 
-            padding-top: 180px; 
-            width: 100%; 
-            max-width: 1200px; 
-            margin: 0 auto;
-        }
-
-        section { 
-            padding: 100px 10%; 
-            width: 100%; 
-        }
-
-        .main-hero-title {
-            font-size: clamp(4rem, 15vw, 10rem); 
+        .main-title {
+            font-size: clamp(3rem, 12vw, 9rem);
             font-weight: 900;
-            background: linear-gradient(180deg, var(--text-main) 20%, var(--primary-color));
-            -webkit-background-clip: text; 
+            background: linear-gradient(to bottom, var(--text-pure), var(--primary-color));
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 35px var(--primary-glow));
-            margin-bottom: 35px;
+            margin-bottom: 20px;
         }
 
-        .hero-description { 
-            font-size: 1.6rem; 
-            color: var(--text-secondary); 
-            max-width: 850px; 
-            margin: 0 auto 50px; 
+        .sub-text {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            max-width: 750px;
+            margin: 0 auto 50px;
         }
 
-        .image-wrapper {
-            width: 100%; 
-            border-radius: 60px; 
+        .hero-image-box {
+            width: 100%;
+            border-radius: var(--card-radius);
             overflow: hidden;
-            border: 1px solid var(--glass-border); 
-            box-shadow: var(--neon-glow-shadow);
-            margin: 70px 0; 
-            transition: 0.9s var(--transition-smooth);
+            border: 1px solid var(--glass-stroke);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            margin-bottom: 60px;
         }
-        .image-wrapper img { width: 100%; display: block; transition: 1.2s; }
-        .image-wrapper:hover img { transform: scale(1.06) rotate(0.5deg); }
 
-        /* 8. شبكة الخدمات والكروت */
-        .services-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
-            gap: 40px; 
-            margin: 80px 0; 
+        .hero-image-box img {
+            width: 100%;
+            display: block;
+            transition: 1.5s var(--smooth-logic);
         }
-        
-        .service-card { 
-            background: var(--card-background); 
-            border: 1px solid var(--glass-border); 
-            padding: 60px 40px; 
-            border-radius: 45px; 
-            backdrop-filter: blur(15px);
-            transition: 0.6s var(--transition-smooth); 
-            position: relative;
+
+        .hero-image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        /* [8] شبكة الخدمات (Services Grid) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .glass-card {
+            background: var(--glass-fill);
+            border: 1px solid var(--glass-stroke);
+            padding: 50px 30px;
+            border-radius: var(--card-radius);
+            backdrop-filter: blur(10px);
+            transition: 0.5s var(--smooth-logic);
             text-align: right;
         }
-        .service-card:hover { 
-            transform: translateY(-20px); 
-            border-color: var(--primary-color); 
-            background: rgba(120, 160, 255, 0.05);
-        }
-        .service-card h3 { 
-            font-size: 2rem; 
-            margin-bottom: 25px; 
-            color: var(--primary-color); 
+
+        .glass-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary-color);
+            background: rgba(120, 160, 255, 0.03);
         }
 
-        .action-button-neon {
-            padding: 24px 85px; 
-            border-radius: 120px; 
-            background: var(--text-main);
-            color: var(--background-dark); 
-            font-weight: 900; 
-            font-size: 1.2rem; 
-            border: none;
-            box-shadow: var(--neon-glow-shadow); 
-            text-decoration: none; 
-            display: inline-block;
-            transition: 0.5s;
+        .glass-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
         }
-        .action-button-neon:hover {
+
+        .glass-card p {
+            color: var(--text-dim);
+        }
+
+        /* [9] الأزرار النيون (Neon Buttons) */
+        .neon-btn {
+            padding: 20px 60px;
+            border-radius: 100px;
+            background: var(--text-pure);
+            color: var(--bg-ultra-dark);
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.1rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: 0.4s;
+            border: none;
+        }
+
+        .neon-btn:hover {
             background: var(--primary-color);
             color: white;
-            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px var(--primary-glow);
         }
 
-        /* 9. الواجهة المنبثقة المطورة (The Modal) */
-        .portfolio-modal { 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 2500;
-        }
-        .portfolio-modal.is-active { 
-            display: flex; 
-            backdrop-filter: blur(40px); 
-            -webkit-backdrop-filter: blur(40px); 
-        }
-        
-        .modal-container { 
-            width: 95%; 
-            max-width: 800px; 
-            background: rgba(8, 12, 20, 0.9);
-            border: 1px solid var(--primary-color); 
-            border-radius: 55px; 
-            padding: 65px;
-            transform: scale(0.8) translateY(60px); 
-            opacity: 0; 
-            transition: 0.6s var(--transition-smooth);
-            box-shadow: 0 45px 90px rgba(0,0,0,0.7);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .portfolio-modal.is-active .modal-container { 
-            transform: scale(1) translateY(0); 
-            opacity: 1; 
-        }
-
-        .links-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 25px; 
-            margin-top: 45px; 
-        }
-        .project-item {
-            padding: 25px; 
-            background: rgba(255,255,255,0.04); 
-            border: 1px solid var(--glass-border);
-            border-radius: 25px; 
-            color: var(--text-main); 
-            text-decoration: none; 
-            font-weight: 800;
-            transition: 0.4s; 
-            display: flex; 
-            align-items: center; 
+        /* [10] الواجهة المنبثقة (Premium Modal) */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            display: none;
+            align-items: center;
             justify-content: center;
-        }
-        .project-item:hover { 
-            background: var(--primary-color); 
-            color: white; 
-            transform: scale(1.08) rotate(-1deg); 
+            z-index: 2000;
+            padding: 20px;
         }
 
-        /* 10. زر واتساب العائم */
-        .whatsapp-float {
+        .modal-overlay.active {
+            display: flex;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 750px;
+            background: #0a0e14;
+            border: 1px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 60px;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: 0.6s var(--smooth-logic);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .portfolio-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .portfolio-item {
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 20px;
+            color: var(--text-pure);
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .portfolio-item:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* [11] زر الواتساب والفوتر */
+        .wa-float {
             position: fixed;
             bottom: 40px;
             right: 40px;
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             background: #25d366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            transition: 0.4s;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: 0.3s;
         }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(15deg); }
 
-        /* استجابة الشاشات الصغيرة */
-        @media (max-width: 768px) { 
-            .links-grid { grid-template-columns: 1fr; } 
-            .modal-container { padding: 40px 25px; }
-            .main-hero-title { font-size: 4rem; }
-            * { cursor: auto !important; }
-            #custom-cursor { display: none; }
+        .wa-float:hover { transform: scale(1.1); }
+
+        footer {
+            padding: 60px 0;
+            opacity: 0.5;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* [12] استجابة الشاشات (Responsive) */
+        @media (max-width: 768px) {
+            .portfolio-list { grid-template-columns: 1fr; }
+            .modal-content { padding: 30px; }
+            .main-title { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div id="custom-cursor"></div>
-    <div class="mesh-background"></div>
-    <div class="sunset-overlay-layer"></div>
+    <div class="glow-sphere"></div>
 
-    <button class="theme-switcher-btn btn-interact" onclick="cycleVisualTheme()" aria-label="Change Theme">
-        <svg id="theme-icon-svg" viewBox="0 0 24 24" width="26" height="26" fill="white">
-            <path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/>
-        </svg>
-    </button>
-
-    <nav class="navbar-top">
-        <div class="brand-logo">TÈNVORA</div>
+    <nav class="main-nav">
+        <div class="nav-brand">Tènvora</div>
+        <button class="theme-button interactive-btn" onclick="toggleAppTheme()">
+            <svg id="theme-icon" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+        </button>
     </nav>
 
     <main>
-        <section id="hero">
-            <h1 class="main-hero-title reveal">Tènvora</h1>
-            <p class="hero-description reveal">
-                نحن لا نصمم مواقع إلكترونية فحسب، بل نصيغ تجارب رقمية غامرة تعيد تعريف حضورك في السوق العالمي بلمسة من الفخامة والذكاء التقني.
+        <section>
+            <h1 class="main-title reveal-element">Tènvora</h1>
+            <p class="sub-text reveal-element">
+                حيث تلتقي الرؤية الفنية بالقوة البرمجية المطلقة؛ نحن هنا لنصمم لك واقعاً رقمياً يتجاوز حدود التوقعات.
             </p>
-            <div class="image-wrapper reveal">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1400&q=80" alt="Tech Visual">
+            <div class="hero-image-box reveal-element">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Tech">
             </div>
-            <p class="reveal" style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
-                نؤمن بأن البرمجة هي فن التفاصيل، لذا نعتني بكل سطر برمجي لنضمن لك أداءً فائقاً وجمالاً بصرياً لا يُضاهى.
-            </p>
+            <p class="reveal-element">نحن نؤمن بأن كل بكسل في موقعك هو فرصة لترك بصمة لا تُنسى في عالم الأعمال.</p>
         </section>
 
-        <section id="philosophy">
-            <h2 class="reveal" style="font-size: 3rem; margin-bottom: 40px;">نحن نقدّر قيمة اللحظة في رحلة نجاحك</h2>
-            <p class="reveal">في عالم يتسارع، نلتزم بتحويل رؤيتك إلى واقع رقمي في وقت قياسي، مع الحفاظ على أعلى معايير الجودة العالمية.</p>
+        <section>
+            <h2 class="reveal-element" style="font-size: 2.8rem; margin-bottom: 30px;">نحن نقدّر الوقت بقدر ما نقدّر الإبداع</h2>
+            <p class="reveal-element">في بيئة عمل متسارعة، نضمن لك تسليم مشروعك في وقت قياسي دون المساومة على أدق التفاصيل التقنية.</p>
             
-            <div class="services-grid">
-                <div class="service-card reveal btn-interact">
+            <div class="features-grid">
+                <div class="glass-card reveal-element interactive-btn">
                     <h3>صوت الريادة</h3>
-                    <p>تميزنا ليس مجرد ادعاء، بل هو انعكاس لنجاحات شركائنا الذين وثقوا في قدرتنا على تغيير قواعد اللعبة الرقمية لصالحهم.</p>
+                    <p>تميزنا هو نتاج ثقة عملائنا الذين حققوا طفرات رقمية حقيقية من خلال حلولنا المبتكرة والذكية.</p>
                 </div>
-                <div class="service-card reveal btn-interact">
+                <div class="glass-card reveal-element interactive-btn">
                     <h3>معيار النخبة</h3>
-                    <p>اختيارك لنا يعني انضمامك إلى قائمة النخبة؛ حيث تلتقي الحلول البرمجية المبتكرة بالأناقة البصرية التي تليق بطموحك.</p>
+                    <p>اختيارك لنا يعني أنك قررت أن تكون في الصدارة؛ حيث الأناقة البصرية تلتقي بالكفاءة البرمجية العالية.</p>
                 </div>
             </div>
-
-            <div class="image-wrapper reveal">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80" alt="Strategy Visual">
+            
+            <div class="hero-image-box reveal-element" style="margin-top: 60px;">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analytics">
             </div>
-            <p class="reveal">نقدم لك استثماراً ذكياً يوازن بين التكلفة المنصفة والنتائج الإبداعية المبهرة، بعيداً عن التعقيدات والتقديرات المبالغ فيها.</p>
+            <p class="reveal-element">نقدم استثماراً ذكياً يوازن بين السعر المنصف والنتائج المبهرة التي تضع علامتك التجارية في مكانها الصحيح.</p>
         </section>
 
-        <section id="identity">
-            <h2 class="reveal" style="color: var(--primary-color); font-size: 2.8rem; margin-bottom: 30px;">بناء الكيان البصري</h2>
-            <p class="reveal">إبداعنا يتجاوز حدود الكود البرمجي ليشمل صياغة هوية بصرية متكاملة تحكي قصة علامتك التجارية بوضوح وفخر.</p>
+        <section>
+            <h2 class="reveal-element" style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 30px;">تجسيد الهوية البصرية</h2>
+            <p class="reveal-element">نبتكر لك روحاً رقمية من خلال هوية بصرية متكاملة تحكي قصتك بوضوح وتخاطب جمهورك بلغة عصرية.</p>
             
-            <div class="image-wrapper reveal">
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1400&q=80" alt="Branding Visual">
+            <div class="hero-image-box reveal-element">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80" alt="Design">
             </div>
 
-            <div class="services-grid">
-                <div class="service-card reveal btn-interact">
+            <div class="features-grid">
+                <div class="glass-card reveal-element interactive-btn">
                     <h3>تصميم الهوية</h3>
-                    <p>نبتكر لك لغة بصرية فريدة تتحدث عنك قبل أن تنطق، من الشعارات الملهمة إلى أنظمة الألوان التي تخطف الأنفاس.</p>
+                    <p>من الشعارات الأيقونية إلى لوحات الألوان المتناغمة؛ نصنع لك حضوراً بصرياً يترك أثراً باقياً.</p>
                 </div>
-                <div class="service-card reveal btn-interact">
+                <div class="glass-card reveal-element interactive-btn">
                     <h3>تجربة المستخدم</h3>
-                    <p>نصمم رحلات مستخدم سلسة وممتعة، حيث يمتزج الجمال الفني بالذكاء الوظيفي لتوفير أقصى درجات الراحة لعملائك.</p>
+                    <p>نحول التصفح إلى متعة حقيقية عبر واجهات غامرة وسلسة تجعل العميل يرتبط بموقعك عاطفياً وتقنياً.</p>
                 </div>
             </div>
-            <p class="reveal">مهمتنا هي تمييزك بوضوح وسط زحام المنافسين عبر واجهات عصرية تبني جسور الثقة والولاء مع جمهورك المستهدف.</p>
+            <p class="reveal-element">مهمتنا الأساسية هي تمييزك بوضوح تام وسط المنافسين عبر واجهات احترافية تخطف الأنظار وتبني جسور الثقة.</p>
         </section>
 
-        <section id="process">
-            <div class="image-wrapper reveal">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80" alt="Teamwork">
+        <section>
+            <div class="hero-image-box reveal-element">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Work">
             </div>
-            <p class="reveal">نتعامل مع كل مشروع كشراكة استراتيجية طويلة الأمد، نمنحها من الشغف والاهتمام ما يضمن بلوغها ذروة النجاح المتوقع.</p>
-            <p class="reveal">تكمن قوتنا في تبسيط الاحتياجات التقنية المعقدة وتحويلها إلى حلول ذكية تتسم بالسهولة والفعالية المطلقة.</p>
-            <p class="reveal">السرعة التي نمتاز بها هي ثمرة تناغم فريق عمل يقدس الابتكار المستمر ويعتبر الدقة هي المعيار الوحيد للتميز.</p>
+            <p class="reveal-element">نتعامل مع كل مشروع كأنه تحفتنا الخاصة، نمنحه الشغف والدقة لضمان بلوغ القمة الرقمية.</p>
+            <p class="reveal-element">براعتنا تكمن في تبسيط تعقيدات رؤيتك وتحويلها إلى حلول برمجية تتسم بالسهولة والفعالية.</p>
+            <p class="reveal-element">السرعة التي تميزنا هي ثمرة فريق عمل يقدس الابتكار المستمر ويعتبر الدقة هي المعيار الوحيد للنجاح.</p>
         </section>
 
-        <section id="cta">
-            <div class="service-card reveal" style="width: 100%; text-align: center; background: rgba(120,160,255,0.04);">
-                <p class="reveal">نبتكر حلولاً مرنة تتناسب مع مختلف التوجهات والميزانيات، مع التزامنا الكامل بتقديم الجودة التي تليق بشركائنا.</p>
-                <p class="reveal">من الفكرة الأولى وحتى لحظة الإطلاق الكبير، نبقى بجانبك خطوة بخطوة، نرسم المسار ونبني مستقبلك الرقمي الواعد.</p>
-                <p class="reveal">ثقتكم الغالية هي محركنا الدائم نحو القمة، وهي رأس مالنا الحقيقي الذي نسعى دوماً للحفاظ عليه وتنميته.</p>
+        <section>
+            <div class="glass-card reveal-element" style="width: 100%; text-align: center; border-color: var(--primary-color);">
+                <p class="reveal-element">نبتكر حلولاً مرنة تناسب طموحاتك، مع الالتزام الراسخ بتقديم أعلى مستويات الجودة العالمية.</p>
+                <p class="reveal-element">منذ الشرارة الأولى للفكرة وحتى يوم الإطلاق، نبقى بجانبك لنبني مستقبلك الرقمي خطوة بخطوة.</p>
+                <p class="reveal-element">ثقتكم الغالية هي الوقود الذي يحركنا دوماً نحو القمة، وهي رأس مالنا الحقيقي الذي نفتخر به.</p>
+            </div>
+
+            <h2 class="reveal-element" style="margin-top: 60px; font-size: 2.2rem;">هل أنت جاهز لتغيير موازين القوى الرقمية؟</h2>
+            <div class="reveal-element" style="margin-top: 40px;">
+                <button class="neon-btn interactive-btn" onclick="togglePortfolioModal(true)">استعرض محفظة أعمالنا</button>
             </div>
             
-            <h2 class="reveal" style="margin: 60px 0; font-size: 2.5rem;">هل أنت مستعد لبدء فصل جديد من التميز؟</h2>
-            <button class="action-button-neon reveal btn-interact" onclick="handleModalToggle(true)">استكشف أرشيف أعمالنا</button>
-            
-            <div class="reveal" style="margin-top: 80px; opacity: 0.4; font-size: 1rem; letter-spacing: 2px;">
-                © 2026 TÈNVORA | صياغة المستقبل بذكاء
-            </div>
+            <footer>© 2026 TÈNVORA | صياغة الفخامة الرقمية</footer>
         </section>
     </main>
 
-    <div class="portfolio-modal" id="portfolio-modal-ui" onclick="if(event.target == this) handleModalToggle(false)">
-        <div class="modal-container">
-            <h2 style="color: var(--primary-color); text-align: center; font-size: 2.2rem;">سجل الإنجازات</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-top: 15px;">نخبة من المشاريع التي تشرفنا بتحويلها إلى واقع رقمي مبهر</p>
+    <div class="modal-overlay" id="work-modal" onclick="if(event.target == this) togglePortfolioModal(false)">
+        <div class="modal-content">
+            <h2 style="color: var(--primary-color); text-align: center;">أرشيف الإبداع</h2>
+            <p style="text-align: center; color: var(--text-dim); margin-top: 10px;">نماذج مختارة من مشاريع قمنا بتحويلها إلى واقع رقمي مبهر</p>
             
-            <div class="links-grid">
-                <a href="https://hurghada-egypt.com" target="_blank" class="project-item btn-interact">hurghada-egypt.com</a>
-                <a href="https://apptree.fr" target="_blank" class="project-item btn-interact">apptree.fr</a>
-                <a href="https://emanalraddadi.com" target="_blank" class="project-item btn-interact">emanalraddadi.com</a>
-                <a href="https://arkancity.com" target="_blank" class="project-item btn-interact">arkancity.com</a>
-                <a href="https://mutobastours.com" target="_blank" class="project-item btn-interact">mutobastours.com</a>
-                <a href="https://tatra-kw.com" target="_blank" class="project-item btn-interact">tatra-kw.com</a>
-                <a href="https://mjdesign.com.sa" target="_blank" class="project-item btn-interact">mjdesign.com.sa</a>
-                <a href="https://emg-ksa.com" target="_blank" class="project-item btn-interact">emg-ksa.com</a>
+            <div class="portfolio-list">
+                <a href="https://hurghada-egypt.com" target="_blank" class="portfolio-item interactive-btn">hurghada-egypt.com</a>
+                <a href="https://apptree.fr" target="_blank" class="portfolio-item interactive-btn">apptree.fr</a>
+                <a href="https://emanalraddadi.com" target="_blank" class="portfolio-item interactive-btn">emanalraddadi.com</a>
+                <a href="https://arkancity.com" target="_blank" class="portfolio-item interactive-btn">arkancity.com</a>
+                <a href="https://mutobastours.com" target="_blank" class="portfolio-item interactive-btn">mutobastours.com</a>
+                <a href="https://tatra-kw.com" target="_blank" class="portfolio-item interactive-btn">tatra-kw.com</a>
+                <a href="https://mjdesign.com.sa" target="_blank" class="portfolio-item interactive-btn">mjdesign.com.sa</a>
+                <a href="https://emg-ksa.com" target="_blank" class="portfolio-item interactive-btn">emg-ksa.com</a>
             </div>
-            
-            <button onclick="handleModalToggle(false)" class="btn-interact" style="width: 100%; margin-top: 40px; padding: 20px; border-radius: 25px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); font-weight: bold; font-size: 1.1rem;">العودة إلى الصفحة الرئيسية</button>
+
+            <button onclick="togglePortfolioModal(false)" class="interactive-btn" style="width: 100%; margin-top: 30px; padding: 18px; border-radius: 20px; background: transparent; border: 1px solid var(--glass-stroke); color: var(--text-dim); font-weight: bold;">العودة</button>
         </div>
     </div>
 
-    <a href="https://wa.me/201207847074" class="whatsapp-float btn-interact" target="_blank">
-        <svg viewBox="0 0 448 512" width="35" height="35" fill="white">
-            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.5-27.4-32.5-30.5-37.9-3.2-5.6-.4-8.6 2.4-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.9-3.7 1-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39
+    <a href="https://wa.me/201207847074" class="wa-float interactive-btn" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 448 512" width="30" height="30" fill="white">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.5-27.4-32.5-30.5-37.9-3.2-5.6-.4-8.6 2.4-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.9-3.7 1-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <script>
+        /**
+         * 1. نظام التفاعل باللمس (Ripple System)
+         * يقوم بإنشاء دائرة وهمية عند مكان الضغط لتعزيز تجربة المستخدم.
+         */
+        document.querySelectorAll('.interactive-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-circle';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        /**
+         * 2. نظام التبديل بين المظاهر (Theme Engine)
+         * يدعم ثلاث أوضاع: مظلم، مضيء، وغروب.
+         */
+        let currentThemeIndex = 0;
+        const themes = ['', 'light-theme', 'sunset-theme'];
+        const iconPaths = [
+            '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>',
+            '<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>',
+            '<path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z"/>'
+        ];
+
+   
