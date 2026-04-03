@@ -82,13 +82,11 @@
         section p, section h2, section h1, .nav-logo, .card h3, .work-item, footer {
             transition: all 0.5s var(--ease-long);
             cursor: default;
-            /* توهج ثابت بدون لمس */
             text-shadow: 0 0 12px var(--primary-glow);
         }
         
         section p:hover, section h2:hover, section h1:hover, .card h3:hover {
             transform: scale(1.03);
-            /* توهج انفجاري عند الوقوف */
             text-shadow: 0 0 30px var(--primary);
             color: #fff;
         }
@@ -264,7 +262,6 @@
             transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        /* [تجميل البطاقات] */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -446,7 +443,7 @@
                 نحن لسنا مجرد مبرمجين عاديين؛ نحن مجموعة من المبدعين الذين يحولون الأفكار إلى واقع رقمي نابض بالحياة، نصيغ المستقبل بأسطر من الكود المسحور.
             </p>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Technology Future">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Future Tech Tènvora">
             </div>
             <p class="reveal"> نتخصص في إنشاء المواقع الإلكترونية التي تجمع بين الجماليات العصرية والأداء التقني القوي، حيث نتميز بـ الدقة في التنفيذ وكأن كل موقع هو تحفة فنية فريدة تحكي قصتك الرقمية.</p>
         </section>
@@ -456,7 +453,7 @@
                 نحن نسابق الزمن لنمنحك الصدارة في عالم الأعمال، حيث الوقت هو أثمن ما تملك، ونضمن لك السرعة في الإنجاز دون التضحية أبداً بجودة العمل.
             </h2>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Business Growth">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80" alt="Digital Business Growth Fixed">
             </div>
             <div class="grid">
                 <div class="card reveal">
@@ -480,7 +477,7 @@
                 ولأن خدماتنا لا تتوقف عند البرمجة فقط، فنحن نصنع لك تجربة رقمية متكاملة قبل بناء الموقع، حيث يلتقي الإبداع البصري مع الدقة البرمجية لضمان تماسك علامتك.
             </h2>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80" alt="Visual Identity">
+                <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80" alt="Visual Creativity">
             </div>
             <div class="card reveal" style="width: 100%; border-right: 5px solid var(--primary); text-align: center;">
                 <p style="font-size: 20px;">مهمتنا هي أن نجعلك تبرز بين منافسيك من خلال واجهة احترافية الرقمي لبناء تاريخ نجاحك غداً.</p>
@@ -489,7 +486,7 @@
 
         <section>
             <div class="img-container reveal">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Team Work">
+                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=1200&q=80" alt="Coding Innovation">
             </div>
             <p class="reveal" style="font-size: 22px; font-weight: 700; color: var(--accent); margin: 30px 0;">"نتعامل مع كل مشروع وكأنه مشروعنا الشخصي، نمنحه من الاهتمام ما يضمن نجاحه."</p>
             <p class="reveal">رؤيتك هي وقود إلهامنا، ونحن نعرف كيف نترجم احتياجاتك إلى كود سليم وتصميم مبهر الرقمي لبناء تاريخ نجاحك غداً.</p>
@@ -542,7 +539,7 @@
     <script>
         function setTheme(modeIndex) {
             const body = document.body;
-            body.className = ''; // مسح الأوضاع السابقة
+            body.className = ''; 
             if (modeIndex !== 0) body.classList.add('mode-' + modeIndex);
             document.getElementById('themeCtrl').classList.remove('active');
         }
@@ -568,4 +565,4 @@
         });
     </script>
 </body>
-</html>
+                </html>
