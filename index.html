@@ -609,15 +609,7 @@
     <script>
         // ============= إعدادات Firebase =============
         // 🔥 IMPORTANT: استبدل هذه البيانات ببيانات مشروعك من Firebase Console
-        const firebaseConfig = {
-            apiKey: "AIzaSyBxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            authDomain: "your-project.firebaseapp.com",
-            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456"
-        };
+        
 
         // تهيئة Firebase
         let db = null;
@@ -661,7 +653,24 @@
                 localStorage.setItem('totalVisits', parseInt(total) + 1);
                 let daily = localStorage.getItem(`daily_${today}`) || 0;
                 localStorage.setItem(`daily_${today}`, parseInt(daily) + 1);
-            }
+            // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC0d-w6d3bxJu-qecsjT3bva8kY03SIY6M",
+  authDomain: "tenvora-analytics.firebaseapp.com",
+  databaseURL: "https://tenvora-analytics-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "tenvora-analytics",
+  storageBucket: "tenvora-analytics.firebasestorage.app",
+  messagingSenderId: "817598076923",
+  appId: "1:817598076923:web:93a106e270ebe9c9d81d5e"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);}
         }
 
         // معالجة روابط الإحالة
